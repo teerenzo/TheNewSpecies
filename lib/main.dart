@@ -187,64 +187,87 @@ class customBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 160.0,
-      child: Stack(
-        children: [
-          Container(
-            color: HexColor("F2E5E5"),
-            width: MediaQuery.of(context).size.width,
-            height: 100.0,
-            child: Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(onPressed: () {}, icon: Icon(Icons.menu)),
-                  IconButton(onPressed: () {}, icon: Icon(Icons.account_box)),
-                ],
-              ),
-            ),
-          ),
-          Container(),
-          Positioned(
-            top: 80.0,
-            left: 0.0,
-            right: 0.0,
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50.0),
-                    border: Border.all(
-                        color: Colors.red.withOpacity(0.5), width: 1.0),
-                    color: Colors.white),
+    return Column(
+      children: [
+        Container(
+          height: 160.0,
+          child: Stack(
+            children: [
+              Container(
+                padding: EdgeInsets.only(left: 20, right: 20),
+                color: HexColor("F2E5E5"),
+                width: MediaQuery.of(context).size.width,
+                height: 100.0,
                 child: Center(
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Expanded(
-                        child: TextField(
-                          decoration: InputDecoration(
-                            hintText: "Search",
-                          ),
-                        ),
-                      ),
+                      IconButton(onPressed: () {}, icon: Icon(Icons.menu)),
                       IconButton(
-                        icon: Icon(
-                          Icons.search,
-                          color: Colors.red,
-                        ),
-                        onPressed: () {
-                          print("your menu action here");
-                        },
-                      ),
+                          onPressed: () {}, icon: Icon(Icons.account_box)),
                     ],
                   ),
                 ),
               ),
+              Positioned(
+                top: 80.0,
+                left: 0.0,
+                right: 0.0,
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20.0),
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50.0),
+                        border: Border.all(
+                            color: Colors.red.withOpacity(0.5), width: 1.0),
+                        color: Colors.white),
+                    child: Center(
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: TextField(
+                              decoration: InputDecoration(
+                                hintText: "Search",
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(50),
+                                        bottomLeft: Radius.circular(50))),
+                              ),
+                            ),
+                          ),
+                          IconButton(
+                            icon: Icon(
+                              Icons.search,
+                              color: Colors.red,
+                            ),
+                            onPressed: () {
+                              print("your menu action here");
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        //     //padding begins here
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            'Categories',
+            style: TextStyle(
+              fontSize: 16,
             ),
-          )
-        ],
-      ),
+          ),
+        ),
+        HorizontalList(),
+        Flexible(
+          child: Products(),
+        )
+      ],
     );
   }
 }
