@@ -1,39 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
-import 'package:thenewspecies/model/product.dart';
+// import 'package:thenewspecies/model/product.dart';
 import 'package:thenewspecies/store/cart.dart';
+import 'package:thenewspecies/store/wishList.dart';
 
-class CartProducts extends StatefulWidget {
+// ignore: use_key_in_widget_constructors
+class WishProducts extends StatefulWidget {
   @override
-  _CartProductsState createState() => _CartProductsState();
+  _WishProductsState createState() => _WishProductsState();
 }
 
-class _CartProductsState extends State<CartProducts> {
+class _WishProductsState extends State<WishProducts> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<CartStore>(
-      builder: (context, cart, child) => cart.count <= 0
+    return Consumer<WishListStore>(
+      builder: (context, wishList, child) => wishList.count <= 0
           ? Center(
-              child: Text("Cart is Empty"),
+              child: Text("Wish List is Empty"),
             )
           : ListView.builder(
-              itemCount: cart.count,
+              itemCount: wishList.count,
               itemBuilder: (context, index) {
-                return SingleCartProduct(
-                    prodName: cart.itemList[index].prodName,
-                    prodImage: cart.itemList[index].prodImage,
+                return SingleWishProduct(
+                    prodName: wishList.itemList[index].prodName,
+                    prodImage: wishList.itemList[index].prodImage,
                     prodColor: "red",
                     prodSize: "M",
-                    price: cart.itemList[index].price,
-                    prodQuantity: cart.itemList[index].quantity,
+                    price: wishList.itemList[index].price,
+                    prodQuantity: wishList.itemList[index].quantity,
                     index: index);
               }),
     );
   }
 }
 
-class SingleCartProduct extends StatelessWidget {
+class SingleWishProduct extends StatelessWidget {
   final prodName;
   final prodImage;
   final price;
@@ -42,7 +44,7 @@ class SingleCartProduct extends StatelessWidget {
   final prodQuantity;
   final index;
 
-  SingleCartProduct(
+  SingleWishProduct(
       {this.prodName,
       this.prodImage,
       this.prodColor,
@@ -53,8 +55,8 @@ class SingleCartProduct extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Consumer<CartStore>(
-        builder: (context, cart, child) => ListTile(
+      child: Consumer<WishListStore>(
+        builder: (context, wishList, child) => ListTile(
             leading: Image.asset(prodImage),
             title: Text(prodName),
             subtitle: Container(
@@ -85,41 +87,6 @@ class SingleCartProduct extends StatelessWidget {
                           )
                         ],
                       ),
-                      Column(
-                        children: [
-                          Consumer<CartStore>(
-                            builder: (context, cart, child) => InkWell(
-                              onTap: () {
-                                cart.addQty(index);
-                              },
-                              child: Text(
-                                '+',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16.0,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Text("$prodQuantity"),
-                          Consumer<CartStore>(
-                            builder: (context, cart, child) => InkWell(
-                              onTap: () {
-                                cart.reduceQty(index);
-                              },
-                              child: Text(
-                                '-',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                  fontSize: 16.0,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
                     ],
                   ),
                   Container(
@@ -139,7 +106,7 @@ class SingleCartProduct extends StatelessWidget {
             trailing: IconButton(
               icon: Icon(Icons.delete),
               onPressed: () {
-                cart.removeItem(cart.itemList[index]);
+                wishList.removeItem(wishList.itemList[index]);
               },
             )),
       ),

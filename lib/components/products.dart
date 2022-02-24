@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:thenewspecies/model/product.dart';
 import 'package:thenewspecies/pages/product_details.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:thenewspecies/store/cart.dart';
+import 'package:thenewspecies/store/wishList.dart';
 
 class Products extends StatefulWidget {
   @override
@@ -112,13 +114,45 @@ class SingleProd extends StatelessWidget {
                             color: HexColor("9D0208"),
                           ),
                         ),
-                        IconButton(
-                          icon: Icon(
-                            Icons.favorite_border,
-                            color: HexColor("9D0208"),
-                            size: 20,
+                        Consumer<WishListStore>(
+                          builder: (context, wishList, child) => IconButton(
+                            icon: wishList.exist(
+                              Product(prodName, prodImage, oldPrice, price, 1),
+                            )
+                                ? Icon(
+                                    Icons.favorite,
+                                    color: HexColor("9D0208"),
+                                    size: 20,
+                                  )
+                                : Icon(
+                                    Icons.favorite_border,
+                                    color: HexColor("9D0208"),
+                                    size: 20,
+                                  ),
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    // title: Text('Quantity'),
+                                    content: Text('Product added to wishlist'),
+                                    actions: [
+                                      MaterialButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop(context);
+                                        },
+                                        child: Text('close'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                              wishList.add(
+                                Product(
+                                    prodName, prodImage, oldPrice, price, 1),
+                              );
+                            },
                           ),
-                          onPressed: () {},
                         )
                       ]),
                 ),
