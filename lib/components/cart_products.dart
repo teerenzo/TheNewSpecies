@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
+import 'package:provider/provider.dart';
+import 'package:thenewspecies/model/product.dart';
+import 'package:thenewspecies/store/cart.dart';
 
 class CartProducts extends StatefulWidget {
   @override
@@ -6,38 +10,26 @@ class CartProducts extends StatefulWidget {
 }
 
 class _CartProductsState extends State<CartProducts> {
-  var productOnTheCart = [
-    {
-      'prodName': 'blazer 2',
-      'prodImage': 'images/products/blazer2.jpeg',
-      'price': 180,
-      'size': 'M',
-      'color': 'red',
-      'quantity': 1
-    },
-    {
-      'prodName': 'dress',
-      'prodImage': 'images/products/dress1.jpeg',
-      'price': 50,
-      'size': 'M',
-      'color': 'red',
-      'quantity': 1
-    },
-  ];
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: productOnTheCart.length,
-        itemBuilder: (context, index) {
-          return SingleCartProduct(
-            prodName: productOnTheCart[index]["prodName"],
-            prodImage: productOnTheCart[index]["prodImage"],
-            prodColor: productOnTheCart[index]["color"],
-            prodSize: productOnTheCart[index]["size"],
-            price: productOnTheCart[index]["price"],
-            prodQuantity: productOnTheCart[index]["quantity"],
-          );
-        });
+    return Consumer<CartStore>(
+      builder: (context, cart, child) => cart.count <= 0
+          ? Center(
+              child: Text("Cart is Empty"),
+            )
+          : ListView.builder(
+              itemCount: cart.count,
+              itemBuilder: (context, index) {
+                return SingleCartProduct(
+                    prodName: cart.itemList[index].prodName,
+                    prodImage: cart.itemList[index].prodImage,
+                    prodColor: "red",
+                    prodSize: "M",
+                    price: cart.itemList[index].price,
+                    prodQuantity: "2",
+                    index: index);
+              }),
+    );
   }
 }
 
@@ -48,94 +40,105 @@ class SingleCartProduct extends StatelessWidget {
   final prodSize;
   final prodColor;
   final prodQuantity;
+  final index;
 
-  SingleCartProduct({
-    this.prodName,
-    this.prodImage,
-    this.prodColor,
-    this.price,
-    this.prodQuantity,
-    this.prodSize,
-  });
+  SingleCartProduct(
+      {this.prodName,
+      this.prodImage,
+      this.prodColor,
+      this.price,
+      this.prodQuantity,
+      this.prodSize,
+      this.index});
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: ListTile(
-        leading: Image.asset(prodImage),
-        title: Text(prodName),
-        subtitle: Container(
-          child: Column(
-            children: [
-              Row(
+      child: Consumer<CartStore>(
+        builder: (context, cart, child) => ListTile(
+            leading: Image.asset(prodImage),
+            title: Text(prodName),
+            subtitle: Container(
+              child: Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(0.0),
-                    child: Text("Size:"),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: Text(
-                      prodSize,
-                      style: TextStyle(
-                        color: Colors.red,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Text("Size:"),
+                          Text(
+                            prodSize,
+                            style: TextStyle(
+                              color: HexColor("9D0208"),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
+                      Row(
+                        children: [
+                          Text("Color:"),
+                          Text(
+                            prodColor,
+                            style: TextStyle(
+                              color: HexColor("9D0208"),
+                            ),
+                          )
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              addQty(index);
+                            },
+                            child: Text(
+                              '+',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16.0,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                          Text("$prodQuantity"),
+                          InkWell(
+                            onTap: () {},
+                            child: Text(
+                              '-',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                                fontSize: 16.0,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20.0, 15.0, 8.0, 8.0),
-                    child: Text("Color:"),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(4.0),
+                  Container(
+                    alignment: Alignment.topLeft,
                     child: Text(
-                      prodColor,
+                      "\$$price",
                       style: TextStyle(
-                        color: Colors.red,
+                        color: HexColor("9D0208"),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 17.0,
                       ),
                     ),
                   ),
                 ],
               ),
-              Container(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  "\$$price",
-                  style: TextStyle(
-                    color: Colors.red,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 17.0,
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
-        trailing: Column(
-          children: [
-            InkWell(
-              onTap: () {},
-              child: Text(
-                '+',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16.0,
-                ),
-              ),
             ),
-            Text("$prodQuantity"),
-            InkWell(
-              onTap: () {},
-              child: Text(
-                '-',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16.0,
-                ),
-              ),
-            ),
-          ],
-        ),
+            trailing: IconButton(
+              icon: Icon(Icons.delete),
+              onPressed: () {
+                cart.removeItem(cart.itemList[index]);
+              },
+            )),
       ),
     );
   }
+
+  void addQty(index) {}
 }

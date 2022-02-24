@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:thenewspecies/components/bottomNavigation.dart';
+import 'package:thenewspecies/model/product.dart';
 import 'package:thenewspecies/pages/cart.dart';
+import 'package:hexcolor/hexcolor.dart';
+import 'package:provider/provider.dart';
+import 'package:thenewspecies/store/cart.dart';
 
 class ProductDetails extends StatefulWidget {
   final productDetailName;
@@ -20,10 +25,11 @@ class _ProductDetailsState extends State<ProductDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: HexColor("F2E5E5"),
       appBar: AppBar(
         elevation: 0.1,
-        backgroundColor: Colors.red,
-        title: Text('ShopApp'),
+        backgroundColor: HexColor("9D0208"),
+        title: Text(widget.productDetailName),
         actions: [
           IconButton(
               icon: Icon(Icons.search, color: Colors.white), onPressed: null),
@@ -39,6 +45,7 @@ class _ProductDetailsState extends State<ProductDetails> {
           )
         ],
       ),
+      bottomNavigationBar: BottomNavigationBtn(),
       body: ListView(
         children: [
           Container(
@@ -209,29 +216,37 @@ class _ProductDetailsState extends State<ProductDetails> {
               Expanded(
                 child: MaterialButton(
                   onPressed: () {},
-                  color: Colors.red,
+                  color: HexColor("9D0208"),
                   textColor: Colors.white,
                   elevation: 0.2,
                   child: Text('Buy Now'),
                 ),
               ),
-              new IconButton(
-                icon: Icon(Icons.add_shopping_cart),
-                onPressed: () {},
-                color: Colors.red,
+              Consumer<CartStore>(
+                builder: (context, cart, child) => new IconButton(
+                  icon: Icon(Icons.add_shopping_cart),
+                  onPressed: () {
+                    cart.add(Product(
+                        widget.productDetailName,
+                        widget.productDetailImage,
+                        widget.productDetailOldPrice,
+                        widget.productDetailPrice));
+                  },
+                  color: HexColor("9D0208"),
+                ),
               ),
 
               new IconButton(
                 icon: Icon(Icons.favorite_border),
                 onPressed: () {},
-                color: Colors.red,
+                color: HexColor("9D0208"),
               )
             ],
           ),
           Divider(),
           ListTile(
             title: Text(
-              'Product Details',
+              'Descriptions',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
               ),
@@ -240,41 +255,6 @@ class _ProductDetailsState extends State<ProductDetails> {
                 'this product is made in rwanda by company called "T ART&DESIGN Ltd. and is product is availbe in all sizes and colors'),
           ),
           Divider(),
-          Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(12.0, 5.0, 5.0, 5.0),
-                child: Text(
-                  'Product Name',
-                  style: TextStyle(
-                    color: Colors.grey,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: Text(widget.productDetailName),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(12.0, 5.0, 5.0, 5.0),
-                child: Text(
-                  'Product Brand',
-                  style: TextStyle(
-                    color: Colors.grey,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(5.0),
-                //fix later
-                child: Text("brand X"),
-              ),
-            ],
-          ),
           Row(
             children: [
               Padding(

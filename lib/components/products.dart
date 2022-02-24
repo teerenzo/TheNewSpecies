@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:thenewspecies/pages/product_details.dart';
+import 'package:hexcolor/hexcolor.dart';
+import 'package:thenewspecies/store/cart.dart';
 
 class Products extends StatefulWidget {
   @override
@@ -64,11 +67,13 @@ class _ProductsState extends State<Products> {
         gridDelegate:
             SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
         itemBuilder: (BuildContext context, int index) {
-          return SingleProd(
-            prodName: productsList[index]['prodName'],
-            prodImage: productsList[index]['prodImage'],
-            oldPrice: productsList[index]['oldPrice'],
-            price: productsList[index]['price'],
+          return Consumer<CartStore>(
+            builder: (context, cart, child) => SingleProd(
+              prodName: productsList[index]['prodName'],
+              prodImage: productsList[index]['prodImage'],
+              oldPrice: productsList[index]['oldPrice'],
+              price: productsList[index]['price'],
+            ),
           );
         });
   }
@@ -96,31 +101,45 @@ class SingleProd extends StatelessWidget {
                       productDetailPrice: price,
                     ))),
             child: GridTile(
-                footer: Container(
-                  color: Colors.white70,
+                header: Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          prodName,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "${price}Rwf",
                           style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16.0,
+                            color: HexColor("9D0208"),
                           ),
                         ),
+                        IconButton(
+                          icon: Icon(
+                            Icons.favorite_border,
+                            color: HexColor("9D0208"),
+                            size: 20,
+                          ),
+                          onPressed: () {},
+                        )
+                      ]),
+                ),
+                footer: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      prodName,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16.0,
                       ),
-                      Text(
-                        "\$$price",
-                        style: TextStyle(
-                          color: Colors.red,
-                        ),
-                      )
-                    ],
+                    ),
                   ),
                 ),
-                child: Image.asset(
-                  prodImage,
-                  fit: BoxFit.cover,
+                child: Padding(
+                  padding: const EdgeInsets.all(40.0),
+                  child: Image.asset(
+                    prodImage,
+                    // fit: BoxFit.cover,
+                  ),
                 )),
           ),
         ),
