@@ -1,44 +1,64 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert' as convert;
 
-class HorizontalList extends StatelessWidget {
+class HorizontalList extends StatefulWidget {
+  @override
+  State<HorizontalList> createState() => _HorizontalListState();
+}
+
+class _HorizontalListState extends State<HorizontalList> {
+  var categories = [];
+  bool isLoading = true;
+
+  fetchCategory() async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request(
+        'GET',
+        Uri.parse(
+            'https://newspeciesendpointswoocomerce.herokuapp.com/categories'));
+    request.body = '''{\n    "per_page":10\n}''';
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var jsonData = convert.jsonDecode(await response.stream.bytesToString());
+      setState(() {
+        categories = jsonData;
+        isLoading = false;
+      });
+      print(jsonData);
+    } else {
+      print(response.reasonPhrase);
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print("dsjfgdsj sdafghjadsf");
+    this.fetchCategory();
+    print(categories);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 50.0,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: [
-          Categories(
-            'Accessories',
-            'images/cats/accessories.png',
-          ),
-          Categories(
-            'Smartphones',
-            'images/cats/dress.png',
-          ),
-          Categories(
-            'Audio',
-            'images/cats/formal.png',
-          ),
-          Categories(
-            'TV',
-            'images/cats/jeans.png',
-          ),
-          Categories(
-            'Speaker',
-            'images/cats/informal.png',
-          ),
-          Categories(
-            'Shoes',
-            'images/cats/shoe.png',
-          ),
-          Categories(
-            'T-shirt',
-            'images/cats/tshirt.png',
-          ),
-        ],
-      ),
-    );
+    return isLoading
+        ? Center(
+            child: CircularProgressIndicator(),
+          )
+        : Container(
+            height: 50.0,
+            child: ListView.builder(
+              itemCount: categories.length,
+              itemBuilder: (context, index) {
+                return Categories(categories[index]['name'], "");
+              },
+              scrollDirection: Axis.horizontal,
+            ),
+          );
   }
 }
 
