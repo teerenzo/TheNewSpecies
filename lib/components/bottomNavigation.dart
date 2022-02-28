@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:thenewspecies/pages/cart.dart';
+import 'package:thenewspecies/pages/wishList.dart';
 
 class BottomNavigationBtn extends StatefulWidget {
   const BottomNavigationBtn({Key? key}) : super(key: key);
@@ -36,7 +37,10 @@ class _BottomNavigationBtnState extends State<BottomNavigationBtn> {
               Icons.favorite,
               color: Colors.white,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => WishList()));
+            },
           ),
           IconButton(
             icon: Icon(

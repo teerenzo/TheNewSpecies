@@ -5,6 +5,7 @@ import 'package:thenewspecies/pages/cart.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:thenewspecies/store/cart.dart';
+import 'package:thenewspecies/store/wishList.dart';
 
 class ProductDetails extends StatefulWidget {
   final productDetailName;
@@ -53,7 +54,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             child: GridTile(
               child: Container(
                 color: Colors.white,
-                child: Image.asset(
+                child: Image.network(
                   widget.productDetailImage,
                   // fit: BoxFit.cover,
                 ),
@@ -226,20 +227,77 @@ class _ProductDetailsState extends State<ProductDetails> {
                 builder: (context, cart, child) => new IconButton(
                   icon: Icon(Icons.add_shopping_cart),
                   onPressed: () {
-                    cart.add(Product(
-                        widget.productDetailName,
-                        widget.productDetailImage,
-                        widget.productDetailOldPrice,
-                        widget.productDetailPrice));
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          // title: Text('Quantity'),
+                          content: Text('Product added to Cart'),
+                          actions: [
+                            MaterialButton(
+                              onPressed: () {
+                                Navigator.of(context).pop(context);
+                              },
+                              child: Text('close'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                    cart.add(
+                      Product(
+                          widget.productDetailName,
+                          widget.productDetailImage,
+                          widget.productDetailOldPrice,
+                          widget.productDetailPrice,
+                          1),
+                    );
                   },
                   color: HexColor("9D0208"),
                 ),
               ),
 
-              new IconButton(
-                icon: Icon(Icons.favorite_border),
-                onPressed: () {},
-                color: HexColor("9D0208"),
+              Consumer<WishListStore>(
+                builder: (context, wishList, child) => new IconButton(
+                  icon: wishList.exist(
+                    Product(
+                        widget.productDetailName,
+                        widget.productDetailImage,
+                        widget.productDetailOldPrice,
+                        widget.productDetailPrice,
+                        1),
+                  )
+                      ? Icon(Icons.favorite)
+                      : Icon(Icons.favorite_border),
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          // title: Text('Quantity'),
+                          content: Text('Product added to wishlist'),
+                          actions: [
+                            MaterialButton(
+                              onPressed: () {
+                                Navigator.of(context).pop(context);
+                              },
+                              child: Text('close'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                    wishList.add(
+                      Product(
+                          widget.productDetailName,
+                          widget.productDetailImage,
+                          widget.productDetailOldPrice,
+                          widget.productDetailPrice,
+                          1),
+                    );
+                  },
+                  color: HexColor("9D0208"),
+                ),
               )
             ],
           ),

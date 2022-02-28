@@ -3,5 +3,7 @@ class Product {
   String prodImage;
   String oldPrice;
   String price;
-  Product(this.prodName, this.prodImage, this.oldPrice, this.price);
+  int quantity;
+  Product(
+      this.prodName, this.prodImage, this.oldPrice, this.price, this.quantity);
 }

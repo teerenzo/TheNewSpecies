@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
-import 'package:hexcolor/hexcolor.dart';
+import 'dart:convert' as convert;
 
 class HorizontalList extends StatefulWidget {
   @override
@@ -10,26 +8,27 @@ class HorizontalList extends StatefulWidget {
 }
 
 class _HorizontalListState extends State<HorizontalList> {
-  List categories = [];
-
-  late bool isLoading;
+  var categories = [];
+  bool isLoading = true;
 
   fetchCategory() async {
     var headers = {'Content-Type': 'application/json'};
-    var request =
-        http.Request('GET', Uri.parse('https://gorest.co.in/public/v2/users'));
-    request.body = json.encode({"per_page": 10});
+    var request = http.Request(
+        'GET',
+        Uri.parse(
+            'https://newspeciesendpointswoocomerce.herokuapp.com/categories'));
+    request.body = '''{\n    "per_page":10\n}''';
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
-      var jsonRes = convert.jsonDecode(await response.stream.bytesToString());
-      print(await response.stream.bytesToString());
+      var jsonData = convert.jsonDecode(await response.stream.bytesToString());
       setState(() {
-        categories = jsonRes;
+        categories = jsonData;
         isLoading = false;
       });
+      print(jsonData);
     } else {
       print(response.reasonPhrase);
     }
@@ -39,22 +38,24 @@ class _HorizontalListState extends State<HorizontalList> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    isLoading = true;
-    fetchCategory();
+    // print("dsjfgdsj sdafghjadsf");
+    // this.fetchCategory();
+    print(categories);
   }
 
   @override
   Widget build(BuildContext context) {
     return isLoading
-        ? const CircularProgressIndicator(
-            color: Colors.amber,
+        ? Center(
+            child: CircularProgressIndicator(),
           )
         : Container(
             height: 50.0,
             child: ListView.builder(
               itemCount: categories.length,
-              itemBuilder: ((context, index) =>
-                  Categories(categories[index]['name'], "")),
+              itemBuilder: (context, index) {
+                return Categories(categories[index]['name'], "");
+              },
               scrollDirection: Axis.horizontal,
             ),
           );

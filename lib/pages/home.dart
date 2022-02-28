@@ -16,6 +16,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print("object");
+  }
+
+  @override
   Widget build(BuildContext context) {
     Widget ImageCarousel = Container(
       height: 250.0,

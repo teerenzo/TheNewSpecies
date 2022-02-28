@@ -41,7 +41,7 @@ class _CartState extends State<Cart> {
                     Expanded(
                       child: ListTile(
                         title: Text('Total'),
-                        subtitle: Text("${cart.amount} /Rwf"),
+                        subtitle: Text("${cart.totalAmount} /Rwf"),
                       ),
                     ),
                     Expanded(
