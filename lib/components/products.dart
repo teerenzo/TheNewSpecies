@@ -17,48 +17,7 @@ class _ProductsState extends State<Products> {
       'oldPrice': '120',
       'price': '90',
     },
-    {
-      'prodName': 'Pant',
-      'prodImage': 'images/products/pants2.jpeg',
-      'oldPrice': '90',
-      'price': '81',
-    },
-    {
-      'prodName': 'Red dress',
-      'prodImage': 'images/products/dress1.jpeg',
-      'oldPrice': '180',
-      'price': '140',
-    },
-    {
-      'prodName': 'Hill',
-      'prodImage': 'images/products/hills1.jpeg',
-      'oldPrice': '180',
-      'price': '170',
-    },
-    {
-      'prodName': 'Hill 2',
-      'prodImage': 'images/products/hills2.jpeg',
-      'oldPrice': '160',
-      'price': '120',
-    },
-    {
-      'prodName': 'blazer 2',
-      'prodImage': 'images/products/blazer2.jpeg',
-      'oldPrice': '200',
-      'price': '180',
-    },
-    {
-      'prodName': 'dress',
-      'prodImage': 'images/products/dress2.jpeg',
-      'oldPrice': '180',
-      'price': '170',
-    },
-    {
-      'prodName': 'skt',
-      'prodImage': 'images/products/skt1.jpeg',
-      'oldPrice': '180',
-      'price': '170',
-    },
+   
   ];
   @override
   Widget build(BuildContext context) {
