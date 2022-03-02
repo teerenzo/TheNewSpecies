@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:thenewspecies/store/cart.dart';
 import 'package:thenewspecies/store/wishList.dart';
 
+import '../model/product.dart';
+
 // ignore: use_key_in_widget_constructors
 class WishProducts extends StatefulWidget {
   @override
@@ -65,40 +67,43 @@ class SingleWishProduct extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        children: [
-                          Text("Size:"),
-                          Text(
-                            prodSize,
-                            style: TextStyle(
-                              color: HexColor("9D0208"),
-                            ),
-                          ),
-                        ],
+                      Text(
+                        "$price RWF",
+                        style: TextStyle(
+                          color: HexColor("9D0208"),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 17.0,
+                        ),
                       ),
-                      Row(
-                        children: [
-                          Text("Color:"),
-                          Text(
-                            prodColor,
-                            style: TextStyle(
-                              color: HexColor("9D0208"),
-                            ),
-                          )
-                        ],
+                      Consumer<CartStore>(
+                        builder: (context, cart, child) => new IconButton(
+                          icon: Icon(Icons.add_shopping_cart),
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  // title: Text('Quantity'),
+                                  content: Text('Product added to Cart'),
+                                  actions: [
+                                    MaterialButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop(context);
+                                      },
+                                      child: Text('close'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                            cart.add(
+                              Product(prodName, prodImage, "0", price, 1),
+                            );
+                          },
+                          color: HexColor("9D0208"),
+                        ),
                       ),
                     ],
-                  ),
-                  Container(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      "\$$price",
-                      style: TextStyle(
-                        color: HexColor("9D0208"),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 17.0,
-                      ),
-                    ),
                   ),
                 ],
               ),

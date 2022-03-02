@@ -63,58 +63,50 @@ class SingleCartProduct extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        children: [
-                          Text("Size:"),
-                          Text(
-                            prodSize,
-                            style: TextStyle(
-                              color: HexColor("9D0208"),
-                            ),
-                          ),
-                        ],
+                      Text(
+                        "\$$price",
+                        style: TextStyle(
+                          color: HexColor("9D0208"),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 17.0,
+                        ),
                       ),
-                      Row(
-                        children: [
-                          Text("Color:"),
-                          Text(
-                            prodColor,
-                            style: TextStyle(
-                              color: HexColor("9D0208"),
-                            ),
-                          )
-                        ],
-                      ),
+                      // Row(
+                      //   children: [
+                      //     Text("Size:"),
+                      //     Text(
+                      //       prodSize,
+                      //       style: TextStyle(
+                      //         color: HexColor("9D0208"),
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
+
                       Column(
                         children: [
                           Consumer<CartStore>(
-                            builder: (context, cart, child) => InkWell(
-                              onTap: () {
+                            builder: (context, cart, child) => IconButton(
+                              onPressed: () {
                                 cart.addQty(index);
                               },
-                              child: Text(
-                                '+',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16.0,
-                                  color: Colors.black,
-                                ),
+                              icon: Icon(
+                                Icons.add,
+                                size: 13.2,
+                                color: Colors.black,
                               ),
                             ),
                           ),
                           Text("$prodQuantity"),
                           Consumer<CartStore>(
-                            builder: (context, cart, child) => InkWell(
-                              onTap: () {
+                            builder: (context, cart, child) => IconButton(
+                              onPressed: () {
                                 cart.reduceQty(index);
                               },
-                              child: Text(
-                                '-',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                  fontSize: 16.0,
-                                ),
+                              icon: Icon(
+                                Icons.remove,
+                                size: 13.2,
+                                color: Colors.black,
                               ),
                             ),
                           ),
@@ -122,17 +114,10 @@ class SingleCartProduct extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Container(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      "\$$price",
-                      style: TextStyle(
-                        color: HexColor("9D0208"),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 17.0,
-                      ),
-                    ),
-                  ),
+                  // Container(
+                  //   alignment: Alignment.topLeft,
+                  //   child:
+                  // ),
                 ],
               ),
             ),

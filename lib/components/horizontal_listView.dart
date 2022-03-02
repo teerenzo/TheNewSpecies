@@ -39,7 +39,7 @@ class _HorizontalListState extends State<HorizontalList> {
     // TODO: implement initState
     super.initState();
     // print("dsjfgdsj sdafghjadsf");
-    // this.fetchCategory();
+    this.fetchCategory();
     print(categories);
   }
 

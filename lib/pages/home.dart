@@ -238,29 +238,31 @@ class customBarWidget extends StatelessWidget {
                             width: 1.0),
                         color: Colors.white),
                     child: Center(
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: TextField(
-                              decoration: InputDecoration(
-                                hintText: "Search",
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(50),
-                                        bottomLeft: Radius.circular(50))),
+                      child: Flexible(
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: TextField(
+                                decoration: InputDecoration(
+                                  hintText: "Search",
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(50),
+                                          bottomLeft: Radius.circular(50))),
+                                ),
                               ),
                             ),
-                          ),
-                          IconButton(
-                            icon: Icon(
-                              Icons.search,
-                              color: HexColor("9D0208"),
+                            IconButton(
+                              icon: Icon(
+                                Icons.search,
+                                color: HexColor("9D0208"),
+                              ),
+                              onPressed: () {
+                                print("your menu action here");
+                              },
                             ),
-                            onPressed: () {
-                              print("your menu action here");
-                            },
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
