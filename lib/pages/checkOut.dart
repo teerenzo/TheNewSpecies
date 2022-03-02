@@ -10,6 +10,8 @@ class CheckOut extends StatefulWidget {
 class _CheckOutState extends State<CheckOut> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      child: Text("test"),
+    );
   }
 }

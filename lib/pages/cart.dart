@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:thenewspecies/components/cart_products.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:thenewspecies/pages/account.dart';
+import 'package:thenewspecies/pages/checkOut.dart';
 import 'package:thenewspecies/store/cart.dart';
 
 class Cart extends StatefulWidget {
@@ -46,7 +48,13 @@ class _CartState extends State<Cart> {
                     ),
                     Expanded(
                       child: MaterialButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          print("clicked");
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(builder: (context) {
+                            return UserAccount();
+                          }));
+                        },
                         color: HexColor("9D0208"),
                         child: Text(
                           'CheckOut',

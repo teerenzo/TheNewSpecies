@@ -64,7 +64,7 @@ class SingleCartProduct extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "\$$price",
+                        "$price Rwf",
                         style: TextStyle(
                           color: HexColor("9D0208"),
                           fontWeight: FontWeight.bold,
@@ -83,7 +83,7 @@ class SingleCartProduct extends StatelessWidget {
                       //   ],
                       // ),
 
-                      Column(
+                      Row(
                         children: [
                           Consumer<CartStore>(
                             builder: (context, cart, child) => IconButton(
@@ -92,12 +92,15 @@ class SingleCartProduct extends StatelessWidget {
                               },
                               icon: Icon(
                                 Icons.add,
-                                size: 13.2,
-                                color: Colors.black,
+                                size: 15,
+                                color: HexColor("9D0208"),
                               ),
                             ),
                           ),
-                          Text("$prodQuantity"),
+                          Text(
+                            "$prodQuantity",
+                            style: TextStyle(color: Colors.black),
+                          ),
                           Consumer<CartStore>(
                             builder: (context, cart, child) => IconButton(
                               onPressed: () {
@@ -105,8 +108,8 @@ class SingleCartProduct extends StatelessWidget {
                               },
                               icon: Icon(
                                 Icons.remove,
-                                size: 13.2,
-                                color: Colors.black,
+                                size: 15,
+                                color: HexColor("9D0208"),
                               ),
                             ),
                           ),

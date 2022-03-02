@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:thenewspecies/pages/MyAccount.dart';
 import 'package:thenewspecies/pages/cart.dart';
+import 'package:thenewspecies/pages/home.dart';
 import 'package:thenewspecies/pages/wishList.dart';
 
 class BottomNavigationBtn extends StatefulWidget {
@@ -23,14 +25,9 @@ class _BottomNavigationBtnState extends State<BottomNavigationBtn> {
               Icons.home,
               color: Colors.white,
             ),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: Icon(
-              Icons.comment,
-              color: Colors.white,
-            ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
           ),
           IconButton(
             icon: Icon(
@@ -57,7 +54,11 @@ class _BottomNavigationBtnState extends State<BottomNavigationBtn> {
               Icons.person,
               color: Colors.white,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                return MyAccount();
+              }));
+            },
           )
         ],
       ),
