@@ -6,6 +6,7 @@ import 'package:thenewspecies/pages/home.dart';
 import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
 import 'package:thenewspecies/store/cart.dart';
+import 'package:thenewspecies/store/chechOut.dart';
 import 'package:thenewspecies/store/wishList.dart';
 
 void main() {
@@ -24,6 +25,9 @@ class MyApp extends StatelessWidget {
         }),
         ChangeNotifierProvider<WishListStore>(create: (context) {
           return WishListStore();
+        }),
+        ChangeNotifierProvider<CheckOutStore>(create: (context) {
+          return CheckOutStore();
         })
       ],
       child: MaterialApp(

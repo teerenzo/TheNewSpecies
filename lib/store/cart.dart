@@ -8,23 +8,21 @@ class CartStore extends ChangeNotifier {
 
   double amount = 0;
   void add(Product item) {
-    final index =
-        items.indexWhere((element) => element.prodName == item.prodName);
+    final index = items.indexWhere((element) => element.name == item.name);
     if (index != -1) {
-      items[index].quantity += 1;
+      items[index].quantity = items[index].quantity!.toInt() + 1;
     } else {
       items.add(item);
     }
-    amount += double.parse(item.price);
+    amount += double.parse(item.price.toString());
 
     notifyListeners();
   }
 
   void removeItem(Product item) {
-    final index =
-        items.indexWhere((element) => element.prodName == item.prodName);
-    var qty = items[index].quantity;
-    amount -= double.parse(item.price) * qty;
+    final index = items.indexWhere((element) => element.name == item.name);
+    var qty = items[index].quantity!.toInt();
+    amount -= double.parse(item.price.toString()) * qty;
     items.remove(item);
     notifyListeners();
   }
@@ -42,15 +40,15 @@ class CartStore extends ChangeNotifier {
   }
 
   void addQty(index) {
-    items[index].quantity += 1;
-    amount += double.parse(items[index].price);
+    items[index].quantity = items[index].quantity!.toInt() + 1;
+    amount += double.parse(items[index].price.toString());
     notifyListeners();
   }
 
   void reduceQty(index) {
-    if (items[index].quantity > 1) {
-      items[index].quantity -= 1;
-      amount -= double.parse(items[index].price);
+    if (items[index].quantity!.toInt() > 1) {
+      items[index].quantity = items[index].quantity!.toInt() - 1;
+      amount -= double.parse(items[index].price.toString());
     }
     notifyListeners();
   }

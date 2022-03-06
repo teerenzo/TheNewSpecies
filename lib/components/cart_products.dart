@@ -21,42 +21,24 @@ class _CartProductsState extends State<CartProducts> {
               itemCount: cart.count,
               itemBuilder: (context, index) {
                 return SingleCartProduct(
-                    prodName: cart.itemList[index].prodName,
-                    prodImage: cart.itemList[index].prodImage,
-                    prodColor: "red",
-                    prodSize: "M",
-                    price: cart.itemList[index].price,
-                    prodQuantity: cart.itemList[index].quantity,
-                    index: index);
+                    product: cart.itemList[index], index: index);
               }),
     );
   }
 }
 
 class SingleCartProduct extends StatelessWidget {
-  final prodName;
-  final prodImage;
-  final price;
-  final prodSize;
-  final prodColor;
-  final prodQuantity;
+  Product product;
   final index;
 
-  SingleCartProduct(
-      {this.prodName,
-      this.prodImage,
-      this.prodColor,
-      this.price,
-      this.prodQuantity,
-      this.prodSize,
-      this.index});
+  SingleCartProduct({required this.product, this.index});
   @override
   Widget build(BuildContext context) {
     return Card(
       child: Consumer<CartStore>(
         builder: (context, cart, child) => ListTile(
-            leading: Image.network(prodImage),
-            title: Text(prodName),
+            leading: Image.network("${product.images![0].src}"),
+            title: Text("${product.name}"),
             subtitle: Container(
               child: Column(
                 children: [
@@ -64,7 +46,7 @@ class SingleCartProduct extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "$price Rwf",
+                        "${product.price} Rwf",
                         style: TextStyle(
                           color: HexColor("9D0208"),
                           fontWeight: FontWeight.bold,
@@ -83,7 +65,7 @@ class SingleCartProduct extends StatelessWidget {
                       //   ],
                       // ),
 
-                      Row(
+                      Column(
                         children: [
                           Consumer<CartStore>(
                             builder: (context, cart, child) => IconButton(
@@ -98,7 +80,7 @@ class SingleCartProduct extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            "$prodQuantity",
+                            "${product.quantity}",
                             style: TextStyle(color: Colors.black),
                           ),
                           Consumer<CartStore>(

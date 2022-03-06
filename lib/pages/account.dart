@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:thenewspecies/components/formButton.dart';
 import 'package:thenewspecies/components/inputfield.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserAccount extends StatefulWidget {
   const UserAccount({Key? key}) : super(key: key);
@@ -87,8 +88,15 @@ class _UserAccountState extends State<UserAccount> {
     return isValid;
   }
 
-  submit() {
-    if (validate()) {}
+  submit() async {
+    if (validate()) {
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setString("names", names);
+      prefs.setString("neighborhood", neighborhood);
+      prefs.setString("neighborhoodDetails", neighborhoodDetails);
+      prefs.setString("phone", phone);
+      prefs.setString("email", email);
+    }
   }
 
   @override

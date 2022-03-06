@@ -7,6 +7,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:thenewspecies/pages/account.dart';
 import 'package:thenewspecies/pages/checkOut.dart';
 import 'package:thenewspecies/store/cart.dart';
+import 'package:thenewspecies/store/chechOut.dart';
 
 class Cart extends StatefulWidget {
   @override
@@ -47,18 +48,25 @@ class _CartState extends State<Cart> {
                       ),
                     ),
                     Expanded(
-                      child: MaterialButton(
-                        onPressed: () {
-                          print("clicked");
-                          Navigator.of(context)
-                              .push(MaterialPageRoute(builder: (context) {
-                            return UserAccount();
-                          }));
-                        },
-                        color: HexColor("9D0208"),
-                        child: Text(
-                          'CheckOut',
-                          style: TextStyle(color: Colors.white),
+                      child: Consumer<CheckOutStore>(
+                        builder: (context, checkOutProduct, child) =>
+                            MaterialButton(
+                          onPressed: () {
+                            print("clicked");
+                            checkOutProduct.removeAll();
+                            cart.itemList.forEach((element) {
+                              checkOutProduct.add(element);
+                            });
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(builder: (context) {
+                              return CheckOut();
+                            }));
+                          },
+                          color: HexColor("9D0208"),
+                          child: Text(
+                            'CheckOut',
+                            style: TextStyle(color: Colors.white),
+                          ),
                         ),
                       ),
                     )

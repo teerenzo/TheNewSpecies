@@ -9,8 +9,7 @@ class WishListStore extends ChangeNotifier {
   // double amount = 0;
   void add(Product item) {
     // print("ok");
-    final index =
-        items.indexWhere((element) => element.prodName == item.prodName);
+    final index = items.indexWhere((element) => element.name == item.name);
     if (index != -1) {
       print(items[index]);
       items.remove(item);
@@ -37,8 +36,7 @@ class WishListStore extends ChangeNotifier {
   }
 
   bool exist(item) {
-    if (items.indexWhere((element) => element.prodName == item.prodName) ==
-        -1) {
+    if (items.indexWhere((element) => element.name == item.name) == -1) {
       return false;
     } else {
       return true;

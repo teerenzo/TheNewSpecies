@@ -25,42 +25,24 @@ class _WishProductsState extends State<WishProducts> {
               itemCount: wishList.count,
               itemBuilder: (context, index) {
                 return SingleWishProduct(
-                    prodName: wishList.itemList[index].prodName,
-                    prodImage: wishList.itemList[index].prodImage,
-                    prodColor: "red",
-                    prodSize: "M",
-                    price: wishList.itemList[index].price,
-                    prodQuantity: wishList.itemList[index].quantity,
-                    index: index);
+                    product: wishList.itemList[index], index: index);
               }),
     );
   }
 }
 
 class SingleWishProduct extends StatelessWidget {
-  final prodName;
-  final prodImage;
-  final price;
-  final prodSize;
-  final prodColor;
-  final prodQuantity;
+  Product product;
   final index;
 
-  SingleWishProduct(
-      {this.prodName,
-      this.prodImage,
-      this.prodColor,
-      this.price,
-      this.prodQuantity,
-      this.prodSize,
-      this.index});
+  SingleWishProduct({required this.product, this.index});
   @override
   Widget build(BuildContext context) {
     return Card(
       child: Consumer<WishListStore>(
         builder: (context, wishList, child) => ListTile(
-            leading: Image.network(prodImage),
-            title: Text(prodName),
+            leading: Image.network("${product.images![0].src}"),
+            title: Text("${product.name}"),
             subtitle: Container(
               child: Column(
                 children: [
@@ -68,7 +50,7 @@ class SingleWishProduct extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "$price RWF",
+                        "${product.price} RWF",
                         style: TextStyle(
                           color: HexColor("9D0208"),
                           fontWeight: FontWeight.bold,
@@ -97,7 +79,7 @@ class SingleWishProduct extends StatelessWidget {
                               },
                             );
                             cart.add(
-                              Product(prodName, prodImage, "0", price, 1),
+                              product,
                             );
                           },
                           color: HexColor("9D0208"),
