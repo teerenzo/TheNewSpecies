@@ -11,16 +11,17 @@ class CheckOutStore extends ChangeNotifier {
     notifyListeners();
   }
 
+  void removeAll() {
+    items.clear();
+    notifyListeners();
+  }
+
   List<Product> get itemList {
     return items;
   }
 
   int get count {
     return items.length;
-  }
-
-  void removeAll() {
-    items.clear();
   }
 
   double get totalAmount {

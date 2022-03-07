@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:thenewspecies/pages/home.dart';
 import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
+import 'package:thenewspecies/pages/splash.dart';
 import 'package:thenewspecies/store/cart.dart';
 import 'package:thenewspecies/store/chechOut.dart';
 import 'package:thenewspecies/store/wishList.dart';
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: HomePage(),
+        home: Splash(),
         theme: ThemeData(
           primarySwatch: Colors.red,
         ),

@@ -15,13 +15,14 @@ class CheckOutProduct extends StatefulWidget {
 class _CheckOutProductState extends State<CheckOutProduct> {
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
     return Consumer<CheckOutStore>(
       builder: (context, chechOut, child) => chechOut.count <= 0
           ? Center(
               child: Text("Cart is Empty"),
             )
           : Container(
-              height: 160,
+              height: screenHeight / 2,
               child: ListView.builder(
                   itemCount: chechOut.count,
                   itemBuilder: (context, index) {

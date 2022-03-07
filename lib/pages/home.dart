@@ -46,11 +46,11 @@ class _HomePageState extends State<HomePage> {
       ),
     );
     return Scaffold(
-      backgroundColor: HexColor("F2E5E5"),
+      backgroundColor: HexColor("#F2E5E5"),
       appBar: AppBar(
-        iconTheme: IconThemeData(color: HexColor("9D0208")),
+        iconTheme: IconThemeData(color: HexColor("#9D0208")),
         elevation: 0.1,
-        backgroundColor: HexColor("F2E5E5"),
+        backgroundColor: HexColor("#F2E5E5"),
         title: Container(
           height: 60.0,
           child: Stack(
@@ -66,39 +66,37 @@ class _HomePageState extends State<HomePage> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50.0),
                         border: Border.all(
-                            color: HexColor("9D0208").withOpacity(0.5),
+                            color: HexColor("#9D0208").withOpacity(0.5),
                             width: 1.0),
                         color: Colors.white),
                     child: Center(
-                      child: Flexible(
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: InkWell(
-                                onTap: () {
-                                  print("taped");
-                                },
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                    hintText: "Search",
-                                    border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(50))),
-                                  ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: InkWell(
+                              onTap: () {
+                                print("taped");
+                              },
+                              child: TextField(
+                                decoration: InputDecoration(
+                                  hintText: "Search",
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(50))),
                                 ),
                               ),
                             ),
-                            IconButton(
-                              icon: Icon(
-                                Icons.search,
-                                color: HexColor("9D0208"),
-                              ),
-                              onPressed: () {
-                                print("your menu action here");
-                              },
+                          ),
+                          IconButton(
+                            icon: Icon(
+                              Icons.search,
+                              color: HexColor("#9D0208"),
                             ),
-                          ],
-                        ),
+                            onPressed: () {
+                              print("your menu action here");
+                            },
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -355,9 +353,7 @@ class customBarWidget extends StatelessWidget {
             ],
           ),
           Container(
-            child: Flexible(
-              child: Products(),
-            ),
+            child: Products(),
           )
         ],
       ),

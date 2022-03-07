@@ -4,7 +4,9 @@ import 'package:thenewspecies/model/product.dart';
 import 'package:thenewspecies/pages/cart.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
+import 'package:thenewspecies/pages/checkOut.dart';
 import 'package:thenewspecies/store/cart.dart';
+import 'package:thenewspecies/store/chechOut.dart';
 import 'package:thenewspecies/store/wishList.dart';
 
 class ProductDetails extends StatefulWidget {
@@ -63,7 +65,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                   Container(
                     color: Colors.white70,
                     child: ListTile(
-                      leading: Text(
+                      title: Text(
                         "${widget.product.name}",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -233,12 +235,22 @@ class _ProductDetailsState extends State<ProductDetails> {
             children: [
               //======the sise button======
               Expanded(
-                child: MaterialButton(
-                  onPressed: () {},
-                  color: HexColor("9D0208"),
-                  textColor: Colors.white,
-                  elevation: 0.2,
-                  child: Text('Buy Now'),
+                child: Consumer<CheckOutStore>(
+                  builder: (context, checkOutProduct, child) => MaterialButton(
+                    onPressed: () {
+                      print("clicked");
+                      checkOutProduct.removeAll();
+                      checkOutProduct.add(widget.product);
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (context) {
+                        return CheckOut();
+                      }));
+                    },
+                    color: HexColor("9D0208"),
+                    textColor: Colors.white,
+                    elevation: 0.2,
+                    child: Text('Buy Now'),
+                  ),
                 ),
               ),
               Consumer<CartStore>(

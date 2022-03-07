@@ -496,7 +496,7 @@ class _ProductsState extends State<Products> {
         'GET',
         Uri.parse(
             'https://newspeciesendpointswoocomerce.herokuapp.com/products'));
-    request.body = '''{\n    "per_page":20\n}''';
+    request.body = '''{\n    "per_page":50\n}''';
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
@@ -619,6 +619,7 @@ class SingleProd extends StatelessWidget {
   SingleProd({required this.product});
   @override
   Widget build(BuildContext context) {
+    var screenHeight = MediaQuery.of(context).size.height;
     String proname = product.name.toString();
     return Card(
       child: Hero(
@@ -693,16 +694,16 @@ class SingleProd extends StatelessWidget {
                       "${proname.length > 20 ? proname.substring(0, 20) + "..." : proname}",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 11.0,
+                        fontSize: screenHeight / 53,
                       ),
                     ),
                   ),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(40.0),
+                  padding: EdgeInsets.all(screenHeight / 25),
                   child: Image.network(
                     "${product.images![0].src}",
-                    // fit: BoxFit.cover,
+                    fit: BoxFit.cover,
                   ),
                 )),
           ),

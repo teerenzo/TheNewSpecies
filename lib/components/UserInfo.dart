@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:thenewspecies/components/checkOutProduct.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class UserInfo extends StatefulWidget {
   const UserInfo({Key? key}) : super(key: key);
@@ -38,7 +39,8 @@ class _UserInfoState extends State<UserInfo> {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     return Container(
-      height: screenHeight / 2,
+      height: screenHeight,
+      color: Colors.white,
       child: ListView(
         shrinkWrap: true,
         scrollDirection: Axis.vertical,
@@ -75,11 +77,15 @@ class _UserInfoState extends State<UserInfo> {
                 Divider(
                   thickness: 1,
                 ),
-                ListTile(
-                  leading: Icon(Icons.logout),
-                  title: Text("LogOut"),
-                )
+                // ListTile(
+                //   leading: Icon(Icons.logout),
+                //   title: Text("LogOut"),
+                // )
               ]),
+          Divider(
+            thickness: 2,
+            color: HexColor("#F2E5E5"),
+          ),
           CheckOutProduct()
         ],
       ),

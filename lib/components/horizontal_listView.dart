@@ -52,7 +52,7 @@ class _HorizontalListState extends State<HorizontalList> {
             child: CircularProgressIndicator(),
           )
         : Container(
-            height: screenHeight / 9,
+            height: screenHeight / 13,
             child: ListView.builder(
               itemCount: categories.length,
               itemBuilder: (context, index) {
@@ -70,18 +70,15 @@ class Categories extends StatelessWidget {
   Categories(this.imageCaption, this.imageLocation);
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(13.0),
-      child: InkWell(
-        onTap: () {},
-        child: Column(
-          children: [
-            // Image.asset(
-            //   imageLocation,
-            //   width: 80.0,
-            //   height: 60.0,
-            // ),
-            RaisedButton(
+    var screenHeight = MediaQuery.of(context).size.height;
+    return Container(
+      child: Padding(
+        padding: EdgeInsets.all(screenHeight / 50),
+        child: InkWell(
+          onTap: () {},
+          child: Container(
+            height: screenHeight / 12,
+            child: RaisedButton(
               color: HexColor("9D0208"),
               shape: RoundedRectangleBorder(
                   borderRadius: const BorderRadius.all(
@@ -92,12 +89,12 @@ class Categories extends StatelessWidget {
                 imageCaption,
                 style: TextStyle(
                   // fontWeight: FontWeight.w200,
-                  fontSize: 15.0,
+                  fontSize: screenHeight / 50,
                   color: Colors.white,
                 ),
               ),
-            )
-          ],
+            ),
+          ),
         ),
       ),
     );
