@@ -642,12 +642,12 @@ class SingleProd extends StatelessWidget {
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          "${product.price}Rwf",
-                          style: TextStyle(
-                            color: HexColor("9D0208"),
-                          ),
-                        ),
+                        // Text(
+                        //   "${product.price}Rwf",
+                        //   style: TextStyle(
+                        //     color: HexColor("9D0208"),
+                        //   ),
+                        // ),
                         Consumer<WishListStore>(
                           builder: (context, wishList, child) => IconButton(
                             icon: wishList.exist(
