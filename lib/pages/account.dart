@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:thenewspecies/components/formButton.dart';
-import 'package:thenewspecies/components/inputfield.dart';
+import 'package:newspecies/components/formButton.dart';
+import 'package:newspecies/components/inputfield.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:newspecies/pages/checkOut.dart';
 
 class UserAccount extends StatefulWidget {
-  const UserAccount({Key? key}) : super(key: key);
+  String path;
+  UserAccount({required this.path});
 
   @override
   _UserAccountState createState() => _UserAccountState();
@@ -91,11 +93,24 @@ class _UserAccountState extends State<UserAccount> {
   submit() async {
     if (validate()) {
       final prefs = await SharedPreferences.getInstance();
-      prefs.setString("names", names);
+      prefs.setString("names", "names");
       prefs.setString("neighborhood", neighborhood);
       prefs.setString("neighborhoodDetails", neighborhoodDetails);
       prefs.setString("phone", phone);
       prefs.setString("email", email);
+      if (widget.path == 'cart') {
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+          return CheckOut();
+        }));
+      } else {
+        Navigator.of(context).pop();
+      }
+    }
+
+    @override
+    Widget build(BuildContext context) {
+      // TODO: implement build
+      throw UnimplementedError();
     }
   }
 
@@ -150,7 +165,7 @@ class _UserAccountState extends State<UserAccount> {
               },
               labelText: "Kigali Neighborhood",
               errorText: neighborhoodError,
-              obscureText: true,
+              // obscureText: true,
               textInputAction: TextInputAction.next,
             ),
 

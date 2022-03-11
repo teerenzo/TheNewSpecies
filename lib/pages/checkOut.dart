@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:thenewspecies/components/UserInfo.dart';
-import 'package:thenewspecies/components/checkOutProduct.dart';
+import 'package:newspecies/components/UserInfo.dart';
+import 'package:newspecies/components/checkOutProduct.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:thenewspecies/store/chechOut.dart';
+import 'package:newspecies/store/chechOut.dart';
 
 class CheckOut extends StatefulWidget {
   const CheckOut({Key? key}) : super(key: key);

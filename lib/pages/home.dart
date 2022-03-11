@@ -2,13 +2,13 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:thenewspecies/components/bottomNavigation.dart';
-import 'package:thenewspecies/components/horizontal_listView.dart';
-import 'package:thenewspecies/components/products.dart';
-import 'package:thenewspecies/pages/cart.dart';
+import 'package:newspecies/components/bottomNavigation.dart';
+import 'package:newspecies/components/horizontal_listView.dart';
+import 'package:newspecies/components/products.dart';
+import 'package:newspecies/pages/cart.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:badges/badges.dart';
-import 'package:thenewspecies/store/cart.dart';
+import 'package:newspecies/store/cart.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -74,17 +74,32 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           Expanded(
                             child: InkWell(
+                              onFocusChange: (value) => Navigator.of(context)
+                                  .push(MaterialPageRoute(
+                                      builder: ((context) => Cart()))),
                               onTap: () {
                                 print("taped");
                               },
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  hintText: "Search",
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(50))),
-                                ),
-                              ),
+                              child: TextButton(
+                                  onPressed: () {},
+                                  child: Text(
+                                    "Search",
+                                    style: TextStyle(color: Colors.grey),
+                                  ),
+                                  style: ButtonStyle(
+                                    alignment: Alignment.centerLeft,
+                                    shape: MaterialStateProperty.all(
+                                        RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(50.0))),
+                                  )
+                                  // decoration: InputDecoration(
+                                  //   hintText: "Search",
+                                  //   border: OutlineInputBorder(
+                                  //       borderRadius: BorderRadius.all(
+                                  //           Radius.circular(50))),
+                                  // ),
+                                  ),
                             ),
                           ),
                           IconButton(

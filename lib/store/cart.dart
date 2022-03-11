@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 // ignore: unused_import
 import 'package:provider/provider.dart';
-import 'package:thenewspecies/model/product.dart';
+import 'package:newspecies/model/product.dart';
 
 class CartStore extends ChangeNotifier {
   List<Product> items = [];
 
   double amount = 0;
   void add(Product item) {
-    final index = items.indexWhere((element) => element.name == item.name);
+    final index = items.indexWhere((element) => element.id == item.id);
     if (index != -1) {
       items[index].quantity = items[index].quantity!.toInt() + 1;
     } else {
@@ -23,6 +23,7 @@ class CartStore extends ChangeNotifier {
     final index = items.indexWhere((element) => element.name == item.name);
     var qty = items[index].quantity!.toInt();
     amount -= double.parse(item.price.toString()) * qty;
+    item.quantity = 1;
     items.remove(item);
     notifyListeners();
   }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:thenewspecies/pages/MyAccount.dart';
-import 'package:thenewspecies/pages/cart.dart';
-import 'package:thenewspecies/pages/home.dart';
-import 'package:thenewspecies/pages/wishList.dart';
+import 'package:newspecies/pages/MyAccount.dart';
+import 'package:newspecies/pages/cart.dart';
+import 'package:newspecies/pages/home.dart';
+import 'package:newspecies/pages/wishList.dart';
 
 class BottomNavigationBtn extends StatefulWidget {
   const BottomNavigationBtn({Key? key}) : super(key: key);

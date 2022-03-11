@@ -2,12 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:thenewspecies/components/cart_products.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:newspecies/components/cart_products.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:thenewspecies/pages/account.dart';
-import 'package:thenewspecies/pages/checkOut.dart';
-import 'package:thenewspecies/store/cart.dart';
-import 'package:thenewspecies/store/chechOut.dart';
+import 'package:newspecies/pages/account.dart';
+import 'package:newspecies/pages/checkOut.dart';
+import 'package:newspecies/store/cart.dart';
+import 'package:newspecies/store/chechOut.dart';
 
 class Cart extends StatefulWidget {
   @override
@@ -52,15 +53,26 @@ class _CartState extends State<Cart> {
                         builder: (context, checkOutProduct, child) =>
                             MaterialButton(
                           onPressed: () {
-                            print("clicked");
-                            checkOutProduct.removeAll();
-                            cart.itemList.forEach((element) {
-                              checkOutProduct.add(element);
+                            getData().then((value) {
+                              print(value);
+                              if (value) {
+                                checkOutProduct.removeAll();
+                                cart.itemList.forEach((element) {
+                                  checkOutProduct.add(element);
+                                });
+                                Navigator.of(context)
+                                    .push(MaterialPageRoute(builder: (context) {
+                                  return CheckOut();
+                                }));
+                              } else {
+                                Navigator.of(context)
+                                    .push(MaterialPageRoute(builder: (context) {
+                                  return UserAccount(
+                                    path: "cart",
+                                  );
+                                }));
+                              }
                             });
-                            Navigator.of(context)
-                                .push(MaterialPageRoute(builder: (context) {
-                              return CheckOut();
-                            }));
                           },
                           color: HexColor("9D0208"),
                           child: Text(
@@ -75,5 +87,29 @@ class _CartState extends State<Cart> {
               ),
       ),
     );
+  }
+
+  Future<bool> getData() async {
+    String names = '',
+        neighborhood = '',
+        neighborhoodDetails = '',
+        phone = '',
+        email = '';
+
+    var prefs = await SharedPreferences.getInstance();
+    setState(() {
+      names = prefs.getString("names").toString();
+      neighborhood = prefs.getString("neighborhood").toString();
+      neighborhoodDetails = prefs.getString("neighborhoodDetails").toString();
+      email = prefs.getString("email").toString();
+      phone = "rtoString()";
+    });
+    print(names);
+
+    if (phone.toString() == "null" || names.toString() == "null") {
+      return false;
+    } else {
+      return true;
+    }
   }
 }

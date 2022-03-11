@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 // import 'package:provider/provider.dart';
 // import 'package:thenewspecies/components/WishList_products.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:thenewspecies/components/wish_products.dart';
+import 'package:newspecies/components/wish_products.dart';
 // import 'package:thenewspecies/store/WishList.dart';
 
 // import '../store/wishList.dart';

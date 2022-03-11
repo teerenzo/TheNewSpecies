@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:thenewspecies/components/bottomNavigation.dart';
-import 'package:thenewspecies/model/product.dart';
-import 'package:thenewspecies/pages/cart.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:newspecies/components/bottomNavigation.dart';
+import 'package:newspecies/model/product.dart';
+import 'package:newspecies/pages/account.dart';
+import 'package:newspecies/pages/cart.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
-import 'package:thenewspecies/pages/checkOut.dart';
-import 'package:thenewspecies/store/cart.dart';
-import 'package:thenewspecies/store/chechOut.dart';
-import 'package:thenewspecies/store/wishList.dart';
+import 'package:newspecies/pages/checkOut.dart';
+import 'package:newspecies/store/cart.dart';
+import 'package:newspecies/store/chechOut.dart';
+import 'package:newspecies/store/wishList.dart';
+import 'package:carousel_pro/carousel_pro.dart';
 
 class ProductDetails extends StatefulWidget {
   Product product;
@@ -26,6 +29,29 @@ class _ProductDetailsState extends State<ProductDetails> {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double size = MediaQuery.of(context).size.width;
+    List<NetworkImage> _imgs = [];
+
+    List<Images>? images = widget.product.images;
+    var images2 = [];
+    for (var i = 0; i < widget.product.images!.length; i++) {
+      _imgs.add(NetworkImage("${widget.product.images![i].src}"));
+    }
+
+    print(_imgs);
+
+    Widget ImageCarousel = Container(
+      color: Colors.white,
+      height: screenHeight / 6,
+      child: Carousel(
+        boxFit: BoxFit.fitHeight,
+        images: _imgs,
+        autoplay: true,
+        dotSize: 4.0,
+        indicatorBgPadding: 2.0,
+        animationCurve: Curves.fastOutSlowIn,
+        animationDuration: Duration(milliseconds: 2000),
+      ),
+    );
     return Scaffold(
       backgroundColor: HexColor("F2E5E5"),
       appBar: AppBar(
@@ -53,13 +79,7 @@ class _ProductDetailsState extends State<ProductDetails> {
           Container(
             height: 300.0,
             child: GridTile(
-              child: Container(
-                color: Colors.white,
-                child: Image.network(
-                  "${widget.product.images![0].src}",
-                  // fit: BoxFit.cover,
-                ),
-              ),
+              child: ImageCarousel,
               footer: Column(
                 children: [
                   Container(
@@ -241,6 +261,24 @@ class _ProductDetailsState extends State<ProductDetails> {
                       print("clicked");
                       checkOutProduct.removeAll();
                       checkOutProduct.add(widget.product);
+                      getData().then((value) {
+                        print(value);
+                        if (value) {
+                          checkOutProduct.removeAll();
+                          checkOutProduct.add(widget.product);
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(builder: (context) {
+                            return CheckOut();
+                          }));
+                        } else {
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(builder: (context) {
+                            return UserAccount(
+                              path: "product",
+                            );
+                          }));
+                        }
+                      });
                       Navigator.of(context)
                           .push(MaterialPageRoute(builder: (context) {
                         return CheckOut();
@@ -353,6 +391,30 @@ class _ProductDetailsState extends State<ProductDetails> {
         ],
       ),
     );
+  }
+
+  Future<bool> getData() async {
+    String names = '',
+        neighborhood = '',
+        neighborhoodDetails = '',
+        phone = '',
+        email = '';
+
+    var prefs = await SharedPreferences.getInstance();
+    setState(() {
+      names = prefs.getString("names").toString();
+      neighborhood = prefs.getString("neighborhood").toString();
+      neighborhoodDetails = prefs.getString("neighborhoodDetails").toString();
+      email = prefs.getString("email").toString();
+      phone = "rtoString()";
+    });
+    print(names);
+
+    if (phone.toString() == "null" || names.toString() == "null") {
+      return false;
+    } else {
+      return true;
+    }
   }
 }
 

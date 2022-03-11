@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 // ignore: unused_import
 import 'package:provider/provider.dart';
-import 'package:thenewspecies/model/product.dart';
+import 'package:newspecies/model/product.dart';
 
 class WishListStore extends ChangeNotifier {
   List<Product> items = [];

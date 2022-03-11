@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 import 'package:hexcolor/hexcolor.dart';
+import 'package:newspecies/model/category.dart';
+import 'package:newspecies/pages/productByCategory.dart';
 
 class HorizontalList extends StatefulWidget {
   @override
@@ -9,8 +11,9 @@ class HorizontalList extends StatefulWidget {
 }
 
 class _HorizontalListState extends State<HorizontalList> {
-  var categories = [];
+  // var categories = [];
   bool isLoading = true;
+  List<CategoryModel> categories = <CategoryModel>[];
 
   fetchCategory() async {
     var headers = {'Content-Type': 'application/json'};
@@ -25,8 +28,12 @@ class _HorizontalListState extends State<HorizontalList> {
 
     if (response.statusCode == 200) {
       var jsonData = convert.jsonDecode(await response.stream.bytesToString());
+      for (var item in jsonData) {
+        CategoryModel categoryModel = CategoryModel.fromJson(item);
+        categories.add(categoryModel);
+      }
       setState(() {
-        categories = jsonData;
+        // categories = jsonData;
         isLoading = false;
       });
       print(jsonData);
@@ -56,7 +63,7 @@ class _HorizontalListState extends State<HorizontalList> {
             child: ListView.builder(
               itemCount: categories.length,
               itemBuilder: (context, index) {
-                return Categories(categories[index]['name'], "");
+                return Categories(categories[index]);
               },
               scrollDirection: Axis.horizontal,
             ),
@@ -65,9 +72,9 @@ class _HorizontalListState extends State<HorizontalList> {
 }
 
 class Categories extends StatelessWidget {
-  final String imageLocation;
-  final String imageCaption;
-  Categories(this.imageCaption, this.imageLocation);
+  CategoryModel categoryProd;
+
+  Categories(this.categoryProd);
   @override
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
@@ -75,7 +82,11 @@ class Categories extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.all(screenHeight / 50),
         child: InkWell(
-          onTap: () {},
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+              return ProductByCategpory(productByCategory: categoryProd);
+            }));
+          },
           child: Container(
             height: screenHeight / 12,
             child: RaisedButton(
@@ -84,9 +95,14 @@ class Categories extends StatelessWidget {
                   borderRadius: const BorderRadius.all(
                 Radius.circular(16.0),
               )),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) {
+                  return ProductByCategpory(productByCategory: categoryProd);
+                }));
+              },
               child: Text(
-                imageCaption,
+                categoryProd.name.toString(),
                 style: TextStyle(
                   // fontWeight: FontWeight.w200,
                   fontSize: screenHeight / 50,

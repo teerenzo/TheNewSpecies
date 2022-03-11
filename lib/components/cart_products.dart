@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
-import 'package:thenewspecies/model/product.dart';
-import 'package:thenewspecies/store/cart.dart';
+import 'package:newspecies/model/product.dart';
+import 'package:newspecies/store/cart.dart';
 
 class CartProducts extends StatefulWidget {
   @override

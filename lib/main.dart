@@ -2,13 +2,13 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:thenewspecies/pages/home.dart';
+import 'package:newspecies/pages/home.dart';
 import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
-import 'package:thenewspecies/pages/splash.dart';
-import 'package:thenewspecies/store/cart.dart';
-import 'package:thenewspecies/store/chechOut.dart';
-import 'package:thenewspecies/store/wishList.dart';
+import 'package:newspecies/pages/splash.dart';
+import 'package:newspecies/store/cart.dart';
+import 'package:newspecies/store/chechOut.dart';
+import 'package:newspecies/store/wishList.dart';
 
 void main() {
   runApp(const MyApp());

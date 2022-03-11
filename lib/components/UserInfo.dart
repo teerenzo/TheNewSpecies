@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:thenewspecies/components/checkOutProduct.dart';
+import 'package:newspecies/components/checkOutProduct.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class UserInfo extends StatefulWidget {
@@ -33,6 +33,7 @@ class _UserInfoState extends State<UserInfo> {
     neighborhoodDetails = "";
     phone = "";
     email = "";
+    getData();
   }
 
   @override
@@ -48,14 +49,14 @@ class _UserInfoState extends State<UserInfo> {
           ListTile(
             leading: CircleAvatar(child: Icon(Icons.account_box)),
             title: Text(
-              "names",
+              names,
               style: TextStyle(
                 fontSize: 21,
               ),
             ),
             subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [Text("Phone: phone"), Text("email: email")]),
+                children: [Text("Phone: $phone"), Text("email: $email")]),
             trailing: Icon(Icons.edit),
           ),
           Divider(
@@ -70,8 +71,8 @@ class _UserInfoState extends State<UserInfo> {
                 SizedBox(height: screenHeight * .010),
                 ListTile(
                   leading: Icon(Icons.location_city),
-                  title: Text("neighborhood"),
-                  subtitle: Text("neighborhoodDetails"),
+                  title: Text("$neighborhood"),
+                  subtitle: Text("$neighborhoodDetails"),
                   trailing: Icon(Icons.edit),
                 ),
                 Divider(

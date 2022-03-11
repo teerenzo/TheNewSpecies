@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:thenewspecies/pages/home.dart';
+import 'package:newspecies/pages/home.dart';
+import 'package:newspecies/pages/home.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);

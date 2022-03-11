@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:thenewspecies/model/product.dart';
+import 'package:newspecies/model/product.dart';
 
 import '../store/chechOut.dart';
 import 'package:provider/provider.dart';
