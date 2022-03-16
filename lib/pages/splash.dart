@@ -12,6 +12,10 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
+  static const spinkit = SpinKitWave(
+    color: Colors.white,
+    size: 50.0,
+  );
   @override
   void initState() {
     _duration().then((value) {
@@ -42,16 +46,17 @@ class _SplashState extends State<Splash> {
                   "images/log1.jpg",
                   width: size.width / 4,
                 ),
-                // SizedBox(
-                //   height: size.height / 20,
-                // ),
+                SizedBox(
+                  height: size.height / 20,
+                ),
+                spinkit,
                 // Text(
                 //   "Buy Online With The Best Platform",
                 //   style: TextStyle(
                 //     fontSize: size.width / 19,
                 //     color: HexColor("#F2E5E5"),
                 //   ),
-                // )
+                //  )
               ],
             ),
           ),

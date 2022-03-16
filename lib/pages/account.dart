@@ -93,7 +93,7 @@ class _UserAccountState extends State<UserAccount> {
   submit() async {
     if (validate()) {
       final prefs = await SharedPreferences.getInstance();
-      prefs.setString("names", "names");
+      prefs.setString("names", names);
       prefs.setString("neighborhood", neighborhood);
       prefs.setString("neighborhoodDetails", neighborhoodDetails);
       prefs.setString("phone", phone);

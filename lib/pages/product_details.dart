@@ -11,6 +11,7 @@ import 'package:newspecies/store/cart.dart';
 import 'package:newspecies/store/chechOut.dart';
 import 'package:newspecies/store/wishList.dart';
 import 'package:carousel_pro/carousel_pro.dart';
+import 'package:whatsapp_share/whatsapp_share.dart';
 
 class ProductDetails extends StatefulWidget {
   Product product;
@@ -85,13 +86,153 @@ class _ProductDetailsState extends State<ProductDetails> {
                   Container(
                     color: Colors.white70,
                     child: ListTile(
-                      title: Text(
-                        "${widget.product.name}",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: screenHeight * 0.018,
+                      title: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            Text(
+                              "${widget.product.name}",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: screenHeight * 0.018,
+                              ),
+                            ),
+                            // Expanded(
+                            //   child: Text("\Rwf${widget.product.price}",
+                            //       style: TextStyle(
+                            //           color: Colors.grey,
+                            //           decoration: TextDecoration.lineThrough)),
+                            // ),
+                            Text(
+                              "${widget.product.price} RWF",
+                              style: TextStyle(
+                                color: Colors.red,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            // Expanded(
+                            //   child: MaterialButton(
+                            //     onPressed: () {
+                            //       showDialog(
+                            //         context: context,
+                            //         builder: (context) {
+                            //           return AlertDialog(
+                            //             title: Text('Size'),
+                            //             content: Text('choose the size'),
+                            //             actions: [
+                            //               MaterialButton(
+                            //                 onPressed: () {
+                            //                   Navigator.of(context).pop(context);
+                            //                 },
+                            //                 child: Text('close'),
+                            //               ),
+                            //             ],
+                            //           );
+                            //         },
+                            //       );
+                            //     },
+                            //     color: Colors.white,
+                            //     textColor: Colors.grey,
+                            //     elevation: 0.2,
+                            //     child: Row(
+                            //       children: [
+                            //         Expanded(
+                            //           child: Text('Size'),
+                            //         ),
+                            //         Expanded(
+                            //           child: Icon(Icons.arrow_drop_down),
+                            //         ),
+                            //       ],
+                            //     ),
+                            //   ),
+                            // ),
+
+                            //======the sise button======
+                            // Expanded(
+                            //   child: MaterialButton(
+                            //     onPressed: () {
+                            //       showDialog(
+                            //         context: context,
+                            //         builder: (context) {
+                            //           return AlertDialog(
+                            //             title: Text('Color'),
+                            //             content: Text('choose a color'),
+                            //             actions: [
+                            //               MaterialButton(
+                            //                 onPressed: () {
+                            //                   Navigator.of(context).pop(context);
+                            //                 },
+                            //                 child: Text('close'),
+                            //               ),
+                            //             ],
+                            //           );
+                            //         },
+                            //       );
+                            //     },
+                            //     color: Colors.white,
+                            //     textColor: Colors.grey,
+                            //     elevation: 0.2,
+                            //     child: Row(
+                            //       children: [
+                            //         Expanded(
+                            //           child: Text('Color'),
+                            //         ),
+                            //         Expanded(
+                            //           child: Icon(Icons.arrow_drop_down),
+                            //         ),
+                            //       ],
+                            //     ),
+                            //   ),
+                            // ),
+
+                            //======the sise button======
+                            // Expanded(
+                            //   child: MaterialButton(
+                            //     onPressed: () {
+                            //       showDialog(
+                            //         context: context,
+                            //         builder: (context) {
+                            //           return AlertDialog(
+                            //             title: Text('Quantity'),
+                            //             content: Text('choose quantity'),
+                            //             actions: [
+                            //               MaterialButton(
+                            //                 onPressed: () {
+                            //                   Navigator.of(context).pop(context);
+                            //                 },
+                            //                 child: Text('close'),
+                            //               ),
+                            //             ],
+                            //           );
+                            //         },
+                            //       );
+                            //     },
+                            //     color: Colors.white,
+                            //     textColor: Colors.grey,
+                            //     elevation: 0.2,
+                            //     child: Row(
+                            //       children: [
+                            //         Expanded(
+                            //           child: Text('Quantity'),
+                            //         ),
+                            //         Expanded(
+                            //           child: Icon(Icons.arrow_drop_down),
+                            //         ),
+                            //       ],
+                            //     ),
+                            //   ),
+                            // ),
+                          ],
                         ),
                       ),
+
+                      // Text(
+                      //   "${widget.product.name}",
+                      //   style: TextStyle(
+                      //     fontWeight: FontWeight.bold,
+                      //     fontSize: screenHeight * 0.018,
+                      //   ),
+                      // ),
                       // title: Row(
                       //   children: [
                       //     Expanded(
@@ -116,139 +257,6 @@ class _ProductDetailsState extends State<ProductDetails> {
                 ],
               ),
             ),
-          ),
-          //======the first buttons =======
-          Row(
-            children: [
-              Expanded(
-                child: Text("\Rwf${widget.product.price}",
-                    style: TextStyle(
-                        color: Colors.grey,
-                        decoration: TextDecoration.lineThrough)),
-              ),
-              Expanded(
-                child: Text(
-                  "\Rwf${widget.product.price}",
-                  style: TextStyle(
-                    color: Colors.red,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              //======the sise button======
-              // Expanded(
-              //   child: MaterialButton(
-              //     onPressed: () {
-              //       showDialog(
-              //         context: context,
-              //         builder: (context) {
-              //           return AlertDialog(
-              //             title: Text('Size'),
-              //             content: Text('choose the size'),
-              //             actions: [
-              //               MaterialButton(
-              //                 onPressed: () {
-              //                   Navigator.of(context).pop(context);
-              //                 },
-              //                 child: Text('close'),
-              //               ),
-              //             ],
-              //           );
-              //         },
-              //       );
-              //     },
-              //     color: Colors.white,
-              //     textColor: Colors.grey,
-              //     elevation: 0.2,
-              //     child: Row(
-              //       children: [
-              //         Expanded(
-              //           child: Text('Size'),
-              //         ),
-              //         Expanded(
-              //           child: Icon(Icons.arrow_drop_down),
-              //         ),
-              //       ],
-              //     ),
-              //   ),
-              // ),
-
-              //======the sise button======
-              // Expanded(
-              //   child: MaterialButton(
-              //     onPressed: () {
-              //       showDialog(
-              //         context: context,
-              //         builder: (context) {
-              //           return AlertDialog(
-              //             title: Text('Color'),
-              //             content: Text('choose a color'),
-              //             actions: [
-              //               MaterialButton(
-              //                 onPressed: () {
-              //                   Navigator.of(context).pop(context);
-              //                 },
-              //                 child: Text('close'),
-              //               ),
-              //             ],
-              //           );
-              //         },
-              //       );
-              //     },
-              //     color: Colors.white,
-              //     textColor: Colors.grey,
-              //     elevation: 0.2,
-              //     child: Row(
-              //       children: [
-              //         Expanded(
-              //           child: Text('Color'),
-              //         ),
-              //         Expanded(
-              //           child: Icon(Icons.arrow_drop_down),
-              //         ),
-              //       ],
-              //     ),
-              //   ),
-              // ),
-
-              //======the sise button======
-              // Expanded(
-              //   child: MaterialButton(
-              //     onPressed: () {
-              //       showDialog(
-              //         context: context,
-              //         builder: (context) {
-              //           return AlertDialog(
-              //             title: Text('Quantity'),
-              //             content: Text('choose quantity'),
-              //             actions: [
-              //               MaterialButton(
-              //                 onPressed: () {
-              //                   Navigator.of(context).pop(context);
-              //                 },
-              //                 child: Text('close'),
-              //               ),
-              //             ],
-              //           );
-              //         },
-              //       );
-              //     },
-              //     color: Colors.white,
-              //     textColor: Colors.grey,
-              //     elevation: 0.2,
-              //     child: Row(
-              //       children: [
-              //         Expanded(
-              //           child: Text('Quantity'),
-              //         ),
-              //         Expanded(
-              //           child: Icon(Icons.arrow_drop_down),
-              //         ),
-              //       ],
-              //     ),
-              //   ),
-              // ),
-            ],
           ),
 
           Row(
@@ -291,6 +299,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                   ),
                 ),
               ),
+
               Consumer<CartStore>(
                 builder: (context, cart, child) => new IconButton(
                   icon: Icon(Icons.add_shopping_cart),
@@ -350,6 +359,48 @@ class _ProductDetailsState extends State<ProductDetails> {
               )
             ],
           ),
+          Row(
+            children: [
+              Expanded(
+                child: Consumer<CheckOutStore>(
+                  builder: (context, checkOutProduct, child) => MaterialButton(
+                    onPressed: () {
+                      share();
+                      // print("clicked");
+                      // checkOutProduct.removeAll();
+                      // checkOutProduct.add(widget.product);
+                      // getData().then((value) {
+                      //   print(value);
+                      //   if (value) {
+                      //     checkOutProduct.removeAll();
+                      //     checkOutProduct.add(widget.product);
+                      //     Navigator.of(context)
+                      //         .push(MaterialPageRoute(builder: (context) {
+                      //       return CheckOut();
+                      //     }));
+                      //   } else {
+                      //     Navigator.of(context)
+                      //         .push(MaterialPageRoute(builder: (context) {
+                      //       return UserAccount(
+                      //         path: "product",
+                      //       );
+                      //     }));
+                      //   }
+                      // });
+                      // Navigator.of(context)
+                      //     .push(MaterialPageRoute(builder: (context) {
+                      //   return CheckOut();
+                      // }));
+                    },
+                    color: Colors.green,
+                    textColor: Colors.white,
+                    elevation: 0.2,
+                    child: Text('Order via Whatsapp'),
+                  ),
+                ),
+              ),
+            ],
+          ),
           Divider(),
           ListTile(
             title: Text(
@@ -390,6 +441,14 @@ class _ProductDetailsState extends State<ProductDetails> {
           // )
         ],
       ),
+    );
+  }
+
+  Future<void> share() async {
+    await WhatsappShare.share(
+      text: 'Example share text',
+      linkUrl: 'https://flutter.dev/',
+      phone: '+250780591269',
     );
   }
 

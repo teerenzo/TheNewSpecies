@@ -1,9 +1,12 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:newspecies/pages/MyAccount.dart';
 import 'package:newspecies/pages/cart.dart';
 import 'package:newspecies/pages/home.dart';
 import 'package:newspecies/pages/wishList.dart';
+import 'package:newspecies/store/cart.dart';
+import 'package:provider/provider.dart';
 
 class BottomNavigationBtn extends StatefulWidget {
   const BottomNavigationBtn({Key? key}) : super(key: key);
@@ -39,15 +42,35 @@ class _BottomNavigationBtnState extends State<BottomNavigationBtn> {
                   .push(MaterialPageRoute(builder: (context) => WishList()));
             },
           ),
-          IconButton(
-            icon: Icon(
-              Icons.shopping_cart,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => Cart()));
-            },
+          Consumer<CartStore>(
+            builder: (context, value, child) => Badge(
+                position: BadgePosition.topEnd(top: 3, end: 3),
+                animationDuration: Duration(milliseconds: 300),
+                animationType: BadgeAnimationType.slide,
+                badgeColor: Colors.white,
+                toAnimate: true,
+                badgeContent: Text(
+                  value.count.toString(),
+                  style: TextStyle(
+                      fontSize: 8,
+                      color: Theme.of(context).primaryColor,
+                      fontWeight: FontWeight.bold),
+                ),
+                child: IconButton(
+                    icon: const Icon(
+                      Icons.shopping_cart_rounded,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) {
+                            return Cart();
+                          },
+                        ),
+                      );
+                    })),
           ),
           IconButton(
             icon: Icon(

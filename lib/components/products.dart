@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 import 'package:newspecies/model/product.dart';
@@ -84,7 +85,10 @@ class _ProductsState extends State<Products> {
     double screenHeight = MediaQuery.of(context).size.height;
     return isLoading
         ? Center(
-            child: CircularProgressIndicator(),
+            child: SpinKitFadingCircle(
+              color: HexColor("#9D0208"),
+              size: 30.0,
+            ),
           )
         // : FutureBuilder<List<Product>>(
         //     future: fetchProducts(),
@@ -111,7 +115,7 @@ class _ProductsState extends State<Products> {
             child: StaggeredGridView.countBuilder(
               shrinkWrap: true,
               itemCount: products.length,
-              crossAxisCount: 3,
+              crossAxisCount: 2,
               crossAxisSpacing: 1,
               mainAxisSpacing: 1,
               itemBuilder: (BuildContext context, int index) {
@@ -157,9 +161,55 @@ class SingleProd extends StatelessWidget {
                   ))),
           child: Column(
             children: [
+              Row(
+                children: [
+                  Consumer<WishListStore>(
+                    builder: (context, wishList, child) => IconButton(
+                      icon: wishList.exist(
+                        product,
+                      )
+                          ? Icon(
+                              Icons.favorite,
+                              color: HexColor("9D0208"),
+                              size: 20,
+                            )
+                          : Icon(
+                              Icons.favorite_border,
+                              color: HexColor("9D0208"),
+                              size: 20,
+                            ),
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              // title: Text('Quantity'),
+                              content: Text('Product added to wishlist'),
+                              actions: [
+                                MaterialButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop(context);
+                                  },
+                                  child: Text('close'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                        wishList.add(product);
+                      },
+                    ),
+                  )
+                ],
+              ),
               Image.network(
                 "${product.images![0].src}",
                 fit: BoxFit.cover,
+              ),
+              Text(
+                "${product.price} RWF",
+                style:
+                    TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
               ),
               Text(
                 "${proname.length > 20 ? proname : proname}",

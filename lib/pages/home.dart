@@ -1,6 +1,7 @@
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
+import 'package:newspecies/pages/search.dart';
 import 'package:provider/provider.dart';
 import 'package:newspecies/components/bottomNavigation.dart';
 import 'package:newspecies/components/horizontal_listView.dart';
@@ -81,7 +82,12 @@ class _HomePageState extends State<HomePage> {
                                 print("taped");
                               },
                               child: TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(builder: (context) {
+                                      return SearchProduct();
+                                    }));
+                                  },
                                   child: Text(
                                     "Search",
                                     style: TextStyle(color: Colors.grey),

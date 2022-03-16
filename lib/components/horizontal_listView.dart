@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 import 'package:hexcolor/hexcolor.dart';
@@ -21,7 +22,7 @@ class _HorizontalListState extends State<HorizontalList> {
         'GET',
         Uri.parse(
             'https://newspeciesendpointswoocomerce.herokuapp.com/categories'));
-    request.body = '''{\n    "per_page":10\n}''';
+    request.body = '''{\n    "per_page":20\n}''';
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
@@ -56,7 +57,10 @@ class _HorizontalListState extends State<HorizontalList> {
     double screenHeight = MediaQuery.of(context).size.height;
     return isLoading
         ? Center(
-            child: CircularProgressIndicator(),
+            child: SpinKitFadingCircle(
+              color: HexColor("#9D0208"),
+              size: 30.0,
+            ),
           )
         : Container(
             height: screenHeight / 13,
@@ -93,7 +97,7 @@ class Categories extends StatelessWidget {
               color: HexColor("9D0208"),
               shape: RoundedRectangleBorder(
                   borderRadius: const BorderRadius.all(
-                Radius.circular(16.0),
+                Radius.circular(0.0),
               )),
               onPressed: () {
                 Navigator.of(context)
