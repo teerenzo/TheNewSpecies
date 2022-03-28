@@ -102,6 +102,10 @@ class _UserAccountState extends State<UserAccount> {
         Navigator.of(context).push(MaterialPageRoute(builder: (context) {
           return CheckOut();
         }));
+      } else if (widget.path == 'product') {
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+          return CheckOut();
+        }));
       } else {
         Navigator.of(context).pop();
       }

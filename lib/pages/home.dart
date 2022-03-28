@@ -371,7 +371,7 @@ class customBarWidget extends StatelessWidget {
                   ),
                 ),
               ),
-            ],
+        ],
           ),
           Container(
             child: Products(),

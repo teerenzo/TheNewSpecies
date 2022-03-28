@@ -100,7 +100,7 @@ class _SearchProductState extends State<SearchProduct> {
           ),
         ),
         body: keywordToSearch.isEmpty
-            ? Center(child: Text("done"))
+            ? Center(child: Text(""))
             : isLoading
                 ? Center(
                     child: SpinKitFadingCircle(

@@ -11,14 +11,10 @@ import 'package:newspecies/store/cart.dart';
 import 'package:newspecies/store/chechOut.dart';
 import 'package:newspecies/store/wishList.dart';
 import 'package:carousel_pro/carousel_pro.dart';
-import 'package:whatsapp_share/whatsapp_share.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProductDetails extends StatefulWidget {
   Product product;
-  // final productDetailName;
-  // final productDetailImage;
-  // final productDetailPrice;
-  // final productDetailOldPrice;
 
   ProductDetails({required this.product});
   @override
@@ -287,10 +283,6 @@ class _ProductDetailsState extends State<ProductDetails> {
                           }));
                         }
                       });
-                      Navigator.of(context)
-                          .push(MaterialPageRoute(builder: (context) {
-                        return CheckOut();
-                      }));
                     },
                     color: HexColor("9D0208"),
                     textColor: Colors.white,
@@ -365,7 +357,12 @@ class _ProductDetailsState extends State<ProductDetails> {
                 child: Consumer<CheckOutStore>(
                   builder: (context, checkOutProduct, child) => MaterialButton(
                     onPressed: () {
-                      share();
+                      String name = widget.product.name.toString();
+                      name = name.replaceAll(" ", "-");
+                      String msg =
+                          "Hello , i want to buy \n \n ${widget.product.name} \n Price: ${widget.product.price}RWF \n URL: https://thenewspecies.com/product/$name/  \n \n \n \n Thank you!";
+
+                      share(msg);
                       // print("clicked");
                       // checkOutProduct.removeAll();
                       // checkOutProduct.add(widget.product);
@@ -444,12 +441,16 @@ class _ProductDetailsState extends State<ProductDetails> {
     );
   }
 
-  Future<void> share() async {
-    await WhatsappShare.share(
-      text: 'Example share text',
-      linkUrl: 'https://flutter.dev/',
-      phone: '+250780591269',
-    );
+  Future<void> share(String msg) async {
+    String tel = "+250788881444";
+
+    String url = "whatsapp://send?phone=$tel&text=$msg";
+    await canLaunch(url) ? launch(url) : print("no lanff");
+    // await WhatsappShare.share(
+    //   text: 'Example share text',
+    //   linkUrl: 'https://flutter.dev/',
+    //   phone: '+250780591269',
+    // );
   }
 
   Future<bool> getData() async {

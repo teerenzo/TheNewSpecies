@@ -12,10 +12,7 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
-  static const spinkit = SpinKitWave(
-    color: Colors.white,
-    size: 50.0,
-  );
+  static const spinkit = SpinKitWave(color: Color.fromARGB(255, 173, 17, 6));
   @override
   void initState() {
     _duration().then((value) {
@@ -36,14 +33,14 @@ class _SplashState extends State<Splash> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        backgroundColor: HexColor('#9D0208'),
+        backgroundColor: HexColor("#F2E5E5"),
         body: Container(
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                  "images/log1.jpg",
+                  "images/logd.png",
                   width: size.width / 4,
                 ),
                 SizedBox(

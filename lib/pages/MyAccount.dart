@@ -49,7 +49,14 @@ class _MyAccountState extends State<MyAccount> {
         child: Center(
           // ignore: unrelated_type_equality_checks
           child: names.toString() == "null"
-              ? Text("data")
+              ? TextButton(
+                  onPressed: () {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) {
+                      return UserAccount(path: "account");
+                    }));
+                  },
+                  child: Text("Save Your Information"))
               : ListView(
                   children: [
                     ListTile(

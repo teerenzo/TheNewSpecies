@@ -1,3 +1,4 @@
+// import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -26,7 +27,15 @@ class _ProductsState extends State<Products> {
 //     animeList.add(item);
 // }
 
-  Future<List<Product>> fetchProducts() async {
+  void fetchProducts() async {
+    // var connectivityResult = await (Connectivity().checkConnectivity());
+    // bool isConnected = false;
+    // if (connectivityResult == ConnectivityResult.mobile) {
+    //   isConnected = true;
+    // } else if (connectivityResult == ConnectivityResult.wifi) {
+    //   isConnected = true;
+    // }
+    // if (isConnected) {
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request(
         'GET',
@@ -56,12 +65,32 @@ class _ProductsState extends State<Products> {
         // products = product as List;
         isLoading = false;
       });
-      return products;
+      // return products;
       // print(jsonData);
     } else {
       print(response.reasonPhrase);
-      return products;
+      // return products;
     }
+    // } else {
+    //   return showDialog(
+    //     context: context,
+    //     builder: (ctx) => AlertDialog(
+    //       title: Text("Network Error"),
+    //       content: Text(""),
+    //       actions: <Widget>[
+    //         FlatButton(
+    //           onPressed: () {
+    //             setState(() {
+    //               isLoading = false;
+    //             });
+    //             Navigator.of(ctx).pop();
+    //           },
+    //           child: Text("close"),
+    //         ),
+    //       ],
+    //     ),
+    //   );
+    // }
     //
   }
 

@@ -40,7 +40,8 @@ dependencies:
   badges: ^2.0.2
   flutter_staggered_grid_view: ^0.3.2
   flutter_spinkit: ^5.1.0
-  whatsapp_share: ^1.1.1
+  url_launcher: ^6.0.20
+  # connectivity: ^3.0.6
 
 dev_dependencies:
   flutter_test:

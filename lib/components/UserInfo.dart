@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:newspecies/components/paymentOption.dart';
+import 'package:newspecies/components/shippingOption.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:newspecies/components/checkOutProduct.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -41,6 +43,7 @@ class _UserInfoState extends State<UserInfo> {
     double screenHeight = MediaQuery.of(context).size.height;
     return Container(
       height: screenHeight,
+      padding: EdgeInsets.only(top: 12),
       color: Colors.white,
       child: ListView(
         shrinkWrap: true,
@@ -87,7 +90,17 @@ class _UserInfoState extends State<UserInfo> {
             thickness: 2,
             color: HexColor("#F2E5E5"),
           ),
-          CheckOutProduct()
+          CheckOutProduct(),
+          Divider(
+            thickness: 2,
+            color: HexColor("#F2E5E5"),
+          ),
+          ShippingInfo(),
+          Divider(
+            thickness: 2,
+            color: HexColor("#F2E5E5"),
+          ),
+          paymentOption(),
         ],
       ),
     );

@@ -22,7 +22,7 @@ class _CheckOutProductState extends State<CheckOutProduct> {
               child: Text("Cart is Empty"),
             )
           : Container(
-              height: screenHeight / 2,
+              height: screenHeight / 5,
               child: ListView.builder(
                   itemCount: chechOut.count,
                   itemBuilder: (context, index) {
