@@ -142,6 +142,7 @@ class _ProductsState extends State<Products> {
             padding: EdgeInsets.all(16),
             height: screenHeight,
             child: StaggeredGridView.countBuilder(
+              // scrollDirection: Axis.horizontal,
               shrinkWrap: true,
               itemCount: products.length,
               crossAxisCount: 2,
@@ -176,77 +177,83 @@ class SingleProd extends StatelessWidget {
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
     String proname = product.name.toString();
-    return Card(
-      child: Material(
-        shape: RoundedRectangleBorder(
-            borderRadius: const BorderRadius.all(
-          Radius.circular(30),
-        )),
-        child: InkWell(
-          onTap: () => Navigator.of(context).push(MaterialPageRoute(
-              //here we are passing the data of product
-              builder: (context) => ProductDetails(
-                    product: product,
-                  ))),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Consumer<WishListStore>(
-                    builder: (context, wishList, child) => IconButton(
-                      icon: wishList.exist(
-                        product,
-                      )
-                          ? Icon(
-                              Icons.favorite,
-                              color: HexColor("9D0208"),
-                              size: 20,
-                            )
-                          : Icon(
-                              Icons.favorite_border,
-                              color: HexColor("9D0208"),
-                              size: 20,
-                            ),
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              // title: Text('Quantity'),
-                              content: Text('Product added to wishlist'),
-                              actions: [
-                                MaterialButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop(context);
-                                  },
-                                  child: Text('close'),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                        wishList.add(product);
-                      },
-                    ),
-                  )
-                ],
-              ),
-              Image.network(
-                "${product.images![0].src}",
-                fit: BoxFit.cover,
-              ),
-              Text(
-                "${product.price} RWF",
-                style:
-                    TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
-              ),
-              Text(
-                "${proname.length > 20 ? proname : proname}",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
+    return Container(
+      width: MediaQuery.of(context).size.width / 2,
+      child: Card(
+        child: Material(
+          shape: RoundedRectangleBorder(
+              borderRadius: const BorderRadius.all(
+            Radius.circular(30),
+          )),
+          child: InkWell(
+            onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                //here we are passing the data of product
+                builder: (context) => ProductDetails(
+                      product: product,
+                    ))),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Consumer<WishListStore>(
+                      builder: (context, wishList, child) => IconButton(
+                        icon: wishList.exist(
+                          product,
+                        )
+                            ? Icon(
+                                Icons.favorite,
+                                color: HexColor("9D0208"),
+                                size: 20,
+                              )
+                            : Icon(
+                                Icons.favorite_border,
+                                color: HexColor("9D0208"),
+                                size: 20,
+                              ),
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                // title: Text('Quantity'),
+                                content: Text('Product added to wishlist'),
+                                actions: [
+                                  MaterialButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop(context);
+                                    },
+                                    child: Text('close'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                          wishList.add(product);
+                        },
+                      ),
+                    )
+                  ],
                 ),
-              ),
-            ],
+                SizedBox(
+                  height: 150,
+                  child: Image.network(
+                    "${product.images![0].src}",
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Text(
+                  "${product.price} RWF",
+                  style:
+                      TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
+                ),
+                Text(
+                  "${proname.length > 20 ? proname : proname}",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

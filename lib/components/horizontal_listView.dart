@@ -31,7 +31,9 @@ class _HorizontalListState extends State<HorizontalList> {
       var jsonData = convert.jsonDecode(await response.stream.bytesToString());
       for (var item in jsonData) {
         CategoryModel categoryModel = CategoryModel.fromJson(item);
-        categories.add(categoryModel);
+        if (categoryModel.image?.src != null) {
+          categories.add(categoryModel);
+        }
       }
       setState(() {
         // categories = jsonData;
@@ -63,7 +65,10 @@ class _HorizontalListState extends State<HorizontalList> {
             ),
           )
         : Container(
-            height: screenHeight / 13,
+            padding: EdgeInsets.only(
+              top: 10,
+            ),
+            height: screenHeight / 7,
             child: ListView.builder(
               itemCount: categories.length,
               itemBuilder: (context, index) {
@@ -83,40 +88,35 @@ class Categories extends StatelessWidget {
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
     return Container(
-      child: Padding(
-        padding: EdgeInsets.all(screenHeight / 50),
         child: InkWell(
-          onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-              return ProductByCategpory(productByCategory: categoryProd);
-            }));
-          },
-          child: Container(
-            height: screenHeight / 12,
-            child: RaisedButton(
-              color: HexColor("9D0208"),
-              shape: RoundedRectangleBorder(
-                  borderRadius: const BorderRadius.all(
-                Radius.circular(0.0),
-              )),
-              onPressed: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) {
-                  return ProductByCategpory(productByCategory: categoryProd);
-                }));
-              },
-              child: Text(
-                categoryProd.name.toString(),
-                style: TextStyle(
-                  // fontWeight: FontWeight.w200,
-                  fontSize: screenHeight / 50,
-                  color: Colors.white,
+      onTap: () {
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+          return ProductByCategpory(productByCategory: categoryProd);
+        }));
+      },
+      child: Container(
+        width: MediaQuery.of(context).size.width / 3.4,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(80.0),
+          child: ListTile(
+              title: ClipRRect(
+                borderRadius: BorderRadius.circular(50.0),
+                child: Image.network(
+                  "${categoryProd.image?.src}",
+                  width: 50.0,
+                  height: 50.0,
+                  // fit: BoxFit.cover,
                 ),
               ),
-            ),
-          ),
+              subtitle: Container(
+                alignment: Alignment.topCenter,
+                child: Text(
+                  "${categoryProd.name}",
+                  style: TextStyle(fontSize: 12.0),
+                ),
+              )),
         ),
       ),
-    );
+    ));
   }
 }

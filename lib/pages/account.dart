@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:newspecies/components/formButton.dart';
 import 'package:newspecies/components/inputfield.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:newspecies/pages/MyAccount.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:newspecies/pages/checkOut.dart';
 
@@ -107,7 +108,9 @@ class _UserAccountState extends State<UserAccount> {
           return CheckOut();
         }));
       } else {
-        Navigator.of(context).pop();
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+          return MyAccount();
+        }));
       }
     }
 

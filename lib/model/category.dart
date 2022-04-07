@@ -1,7 +1,7 @@
 class CategoryModel {
   int? id;
   String? name;
-  Image? image;
+  Images? image;
   int? parent;
 
   CategoryModel({this.id, this.name, this.image, this.parent});
@@ -9,7 +9,7 @@ class CategoryModel {
   CategoryModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
-    image = json['image'] != null ? new Image.fromJson(json['image']) : null;
+    image = json['image'] != null ? new Images.fromJson(json['image']) : null;
     parent = json['parent'];
   }
 
@@ -25,7 +25,7 @@ class CategoryModel {
   }
 }
 
-class Image {
+class Images {
   int? id;
   String? dateCreated;
   String? dateCreatedGmt;
@@ -35,7 +35,7 @@ class Image {
   String? name;
   String? alt;
 
-  Image(
+  Images(
       {this.id,
       this.dateCreated,
       this.dateCreatedGmt,
@@ -45,7 +45,7 @@ class Image {
       this.name,
       this.alt});
 
-  Image.fromJson(Map<String, dynamic> json) {
+  Images.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     dateCreated = json['date_created'];
     dateCreatedGmt = json['date_created_gmt'];

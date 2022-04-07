@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:newspecies/components/bottomNavigation.dart';
 import 'package:newspecies/model/product.dart';
@@ -11,6 +14,8 @@ import 'package:newspecies/store/cart.dart';
 import 'package:newspecies/store/chechOut.dart';
 import 'package:newspecies/store/wishList.dart';
 import 'package:carousel_pro/carousel_pro.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert' as convert;
 import 'package:url_launcher/url_launcher.dart';
 
 class ProductDetails extends StatefulWidget {
@@ -254,7 +259,6 @@ class _ProductDetailsState extends State<ProductDetails> {
               ),
             ),
           ),
-
           Row(
             children: [
               //======the sise button======
@@ -432,10 +436,10 @@ class _ProductDetailsState extends State<ProductDetails> {
             padding: const EdgeInsets.all(8.0),
             child: Text('Similar Products'),
           ),
-          // Container(
-          //   height: 260.0,
-          //   child: SimilarProduct(),
-          // )
+          Container(
+            height: 260.0,
+            child: SimilarProduct(),
+          )
         ],
       ),
     );
@@ -478,115 +482,116 @@ class _ProductDetailsState extends State<ProductDetails> {
   }
 }
 
-// class SimilarProduct extends StatefulWidget {
-//   @override
-//   _SimilarProductState createState() => _SimilarProductState();
-// }
+class SimilarProduct extends StatefulWidget {
+  // Product product;
+  // SimilarProduct({required this.product});
+  @override
+  _SimilarProductState createState() => _SimilarProductState();
+}
 
-// class _SimilarProductState extends State<SimilarProduct> {
-//   var productsList = [
-//     {
-//       'prodName': 'blazer',
-//       'prodImage': 'images/products/blazer1.jpeg',
-//       'oldPrice': '120',
-//       'price': '90',
-//     },
-//     {
-//       'prodName': 'Pant',
-//       'prodImage': 'images/products/pants2.jpeg',
-//       'oldPrice': '90',
-//       'price': '81',
-//     },
-//     {
-//       'prodName': 'Red dress',
-//       'prodImage': 'images/products/dress1.jpeg',
-//       'oldPrice': '180',
-//       'price': '140',
-//     },
-//     {
-//       'prodName': 'blazer 2',
-//       'prodImage': 'images/products/blazer2.jpeg',
-//       'oldPrice': '200',
-//       'price': '180',
-//     },
-//     {
-//       'prodName': 'dress',
-//       'prodImage': 'images/products/dress2.jpeg',
-//       'oldPrice': '180',
-//       'price': '170',
-//     },
-//     {
-//       'prodName': 'skt',
-//       'prodImage': 'images/products/skt1.jpeg',
-//       'oldPrice': '180',
-//       'price': '170',
-//     },
-//   ];
-//   @override
-//   Widget build(BuildContext context) {
-//     return GridView.builder(
-//         itemCount: productsList.length,
-//         gridDelegate:
-//             SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-//         itemBuilder: (BuildContext context, int index) {
-//           return SimilarSingleProd(
-//             prodName: productsList[index]['prodName'],
-//             prodImage: productsList[index]['prodImage'],
-//             oldPrice: productsList[index]['oldPrice'],
-//             price: productsList[index]['price'],
-//           );
-//         });
-//   }
-// }
+class _SimilarProductState extends State<SimilarProduct> {
+  bool isLoading = true;
+  List<Product> productsList = <Product>[];
+  fetchCategory() async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request(
+        'GET',
+        Uri.parse(
+            'https://newspeciesendpointswoocomerce.herokuapp.com/productsBycategory'));
+    request.body = json.encode({"per_page": 10, "category": 39});
+    request.headers.addAll(headers);
+    http.StreamedResponse response = await request.send();
 
-// class SimilarSingleProd extends StatelessWidget {
-//   final prodName;
-//   final prodImage;
-//   final oldPrice;
-//   final price;
-//   SimilarSingleProd({this.prodName, this.prodImage, this.oldPrice, this.price});
-//   @override
-//   Widget build(BuildContext context) {
-//     return Card(
-//       child: Hero(
-//         tag: prodName,
-//         child: Material(
-//           child: InkWell(
-//             onTap: () => Navigator.of(context).push(MaterialPageRoute(
-//                 //here we are passing the data of product
-//                 builder: (context) => ProductDetails(
-//                    product: ,
-//                     ))),
-//             child: GridTile(
-//                 footer: Container(
-//                   color: Colors.white70,
-//                   child: Row(
-//                     children: [
-//                       Expanded(
-//                         child: Text(
-//                           prodName,
-//                           style: TextStyle(
-//                             fontWeight: FontWeight.bold,
-//                             fontSize: 16.0,
-//                           ),
-//                         ),
-//                       ),
-//                       Text(
-//                         "\$$price",
-//                         style: TextStyle(
-//                           color: Colors.red,
-//                         ),
-//                       )
-//                     ],
-//                   ),
-//                 ),
-//                 child: Image.asset(
-//                   prodImage,
-//                   fit: BoxFit.cover,
-//                 )),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
+    if (response.statusCode == 200) {
+      var jsonData = convert.jsonDecode(await response.stream.bytesToString());
+      for (var item in jsonData) {
+        Product productModel = Product.fromJson(item);
+
+        productsList.add(productModel);
+      }
+      setState(() {
+        // categories = jsonData;
+        isLoading = false;
+      });
+      print(jsonData);
+    } else {
+      print(response.reasonPhrase);
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // print("dsjfgdsj sdafghjadsf");
+    this.fetchCategory();
+    print(productsList);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return isLoading
+        ? Center(
+            child: SpinKitFadingCircle(
+              color: HexColor("#9D0208"),
+              size: 30.0,
+            ),
+          )
+        : GridView.builder(
+            itemCount: productsList.length,
+            gridDelegate:
+                SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+            itemBuilder: (BuildContext context, int index) {
+              return SimilarSingleProd(product: productsList[index]);
+            });
+  }
+}
+
+class SimilarSingleProd extends StatelessWidget {
+  Product product;
+  SimilarSingleProd({required this.product});
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Hero(
+        tag: product.name.toString(),
+        child: Material(
+          child: InkWell(
+            // onTap: () => Navigator.of(context).push(MaterialPageRoute(
+            //     //here we are passing the data of product
+            //     builder: (context) => ProductDetails(
+            //        product: ,
+            //         ))),
+            child: GridTile(
+                footer: Container(
+                  color: Colors.white70,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          product.name.toString(),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16.0,
+                          ),
+                        ),
+                      ),
+                      Text(
+                        "${product.price}/ rwf",
+                        style: TextStyle(
+                          color: Colors.red,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                child: Image.asset(
+                  "${product.images![0].src}",
+                  fit: BoxFit.cover,
+                )),
+          ),
+        ),
+      ),
+    );
+  }
+}
