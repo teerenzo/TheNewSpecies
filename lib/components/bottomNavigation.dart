@@ -6,6 +6,7 @@ import 'package:newspecies/pages/cart.dart';
 import 'package:newspecies/pages/home.dart';
 import 'package:newspecies/pages/wishList.dart';
 import 'package:newspecies/store/cart.dart';
+import 'package:newspecies/store/wishList.dart';
 import 'package:provider/provider.dart';
 
 class BottomNavigationBtn extends StatefulWidget {
@@ -19,7 +20,7 @@ class _BottomNavigationBtnState extends State<BottomNavigationBtn> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: HexColor("9D0208"),
+      color: HexColor("#9D0208"),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -29,18 +30,50 @@ class _BottomNavigationBtnState extends State<BottomNavigationBtn> {
               color: Colors.white,
             ),
             onPressed: () {
-              Navigator.of(context).pop();
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                return HomePage();
+              }));
             },
           ),
-          IconButton(
-            icon: Icon(
-              Icons.favorite,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => WishList()));
-            },
+          Consumer<WishListStore>(
+            builder: (context, value, child) => Badge(
+                position: BadgePosition.topEnd(top: 3, end: 3),
+                animationDuration: Duration(milliseconds: 300),
+                animationType: BadgeAnimationType.slide,
+                badgeColor: Colors.white,
+                toAnimate: true,
+                badgeContent: Text(
+                  value.count.toString(),
+                  style: TextStyle(
+                      fontSize: 8,
+                      color: Theme.of(context).primaryColor,
+                      fontWeight: FontWeight.bold),
+                ),
+                child: IconButton(
+                    icon: const Icon(
+                      Icons.favorite,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) {
+                            return WishList();
+                          },
+                        ),
+                      );
+                    })),
+            // child: IconButton(
+            //   icon: Icon(
+            //     Icons.favorite,
+            //     color: Colors.white,
+            //   ),
+            //   onPressed: () {
+            //     Navigator.of(context)
+            //         .push(MaterialPageRoute(builder: (context) => WishList()));
+            //   },
+            // ),
           ),
           Consumer<CartStore>(
             builder: (context, value, child) => Badge(

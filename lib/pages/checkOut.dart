@@ -195,7 +195,7 @@ class _CheckOutState extends State<CheckOut> {
     isDone = false;
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request('GET',
-        Uri.parse('https://newspeciesendpointswoocomerce.herokuapp.com/order'));
+        Uri.parse('https://newspeciesappendpoints.herokuapp.com/order'));
     request.body = json.encode(test2.toString());
     print(request.body);
     request.headers.addAll(headers);

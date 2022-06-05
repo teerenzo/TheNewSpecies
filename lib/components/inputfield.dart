@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 class InputField extends StatelessWidget {
   final String? labelText;
+  final String? hintText;
+
   final Function(String)? onChanged;
   final Function(String)? onSubmitted;
   final String? errorText;
@@ -11,6 +13,7 @@ class InputField extends StatelessWidget {
   final bool obscureText;
   const InputField(
       {this.labelText,
+      this.hintText,
       this.onChanged,
       this.onSubmitted,
       this.errorText,
@@ -31,6 +34,7 @@ class InputField extends StatelessWidget {
       textInputAction: textInputAction,
       obscureText: obscureText,
       decoration: InputDecoration(
+        hintText: hintText,
         labelText: labelText,
         errorText: errorText,
         floatingLabelBehavior: FloatingLabelBehavior.always,

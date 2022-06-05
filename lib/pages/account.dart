@@ -158,9 +158,11 @@ class _UserAccountState extends State<UserAccount> {
                 });
               },
               labelText: "full names",
+              hintText: "ex: john doe",
               // errorText: emailError,
               keyboardType: TextInputType.emailAddress,
               textInputAction: TextInputAction.next,
+
               autoFocus: true,
             ),
             SizedBox(height: screenHeight * .025),
@@ -173,6 +175,7 @@ class _UserAccountState extends State<UserAccount> {
               labelText: "Kigali Neighborhood",
               errorText: neighborhoodError,
               // obscureText: true,
+              hintText: "ex: Gasabo/Gisozi",
               textInputAction: TextInputAction.next,
             ),
 
@@ -184,6 +187,7 @@ class _UserAccountState extends State<UserAccount> {
                 });
               },
               labelText: "neighborhood details",
+              hintText: "near dove hotel",
               errorText: neighborhoodDetailsError,
               keyboardType: TextInputType.emailAddress,
               textInputAction: TextInputAction.next,
@@ -199,6 +203,7 @@ class _UserAccountState extends State<UserAccount> {
               },
               labelText: "phone ",
               errorText: phoneError,
+              hintText: "0788888888",
               keyboardType: TextInputType.emailAddress,
               textInputAction: TextInputAction.next,
               autoFocus: true,
@@ -211,6 +216,7 @@ class _UserAccountState extends State<UserAccount> {
                 });
               },
               labelText: "email ",
+              hintText: "johndoe@gmail.com",
               errorText: emailError,
               keyboardType: TextInputType.emailAddress,
               textInputAction: TextInputAction.next,

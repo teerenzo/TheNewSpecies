@@ -21,7 +21,7 @@ class _HorizontalListState extends State<HorizontalList> {
     var request = http.Request(
         'GET',
         Uri.parse(
-            'https://newspeciesendpointswoocomerce.herokuapp.com/categories'));
+            'https://newspeciesappendpoints.herokuapp.com/categories'));
     request.body = '''{\n    "per_page":20\n}''';
     request.headers.addAll(headers);
 
@@ -74,7 +74,7 @@ class _HorizontalListState extends State<HorizontalList> {
               itemBuilder: (context, index) {
                 return Categories(categories[index]);
               },
-              scrollDirection: Axis.horizontal,
+              scrollDirection: Axis.vertical,
             ),
           );
   }
@@ -98,23 +98,36 @@ class Categories extends StatelessWidget {
         width: MediaQuery.of(context).size.width / 3.4,
         child: InkWell(
           borderRadius: BorderRadius.circular(80.0),
-          child: ListTile(
-              title: ClipRRect(
-                borderRadius: BorderRadius.circular(50.0),
-                child: Image.network(
-                  "${categoryProd.image?.src}",
-                  width: 50.0,
-                  height: 50.0,
-                  // fit: BoxFit.cover,
+          child: Column(
+            children: [
+              ListTile(
+                // title: ClipRRect(
+                //   borderRadius: BorderRadius.circular(50.0),
+                //   child: Image.network(
+                //     "${categoryProd.image?.src}",
+                //     width: 50.0,
+                //     height: 50.0,
+                //     // fit: BoxFit.cover,
+                //   ),
+                // ),
+                title: Container(
+                  alignment: Alignment.topCenter,
+                  child: Text(
+                    "${categoryProd.name}",
+                    style: TextStyle(fontSize: 16.0),
+                  ),
                 ),
+                // subtitle: Container(
+                //   alignment: Alignment.topCenter,
+                //   child: Text(
+                //     "${categoryProd.name}",
+                //     style: TextStyle(fontSize: 12.0),
+                //   ),
+                // )
               ),
-              subtitle: Container(
-                alignment: Alignment.topCenter,
-                child: Text(
-                  "${categoryProd.name}",
-                  style: TextStyle(fontSize: 12.0),
-                ),
-              )),
+              Divider()
+            ],
+          ),
         ),
       ),
     ));

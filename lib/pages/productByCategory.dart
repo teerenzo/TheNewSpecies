@@ -3,12 +3,13 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:http/http.dart' as http;
+
 import 'package:newspecies/model/subcategory.dart';
 import 'package:provider/provider.dart';
 import 'package:newspecies/components/products.dart';
 import 'package:newspecies/model/category.dart';
 import 'dart:convert' as convert;
+import 'package:http/http.dart' as http;
 
 import 'package:newspecies/model/product.dart';
 import 'package:newspecies/store/cart.dart';
@@ -33,7 +34,7 @@ class _ProductByCategporyState extends State<ProductByCategpory> {
     var request = http.Request(
         'GET',
         Uri.parse(
-            'https://newspeciesendpointswoocomerce.herokuapp.com/getSubCategories'));
+            'https://newspeciesappendpoints.herokuapp.com/getSubCategories'));
     request.body = json.encode({"categoryId": widget.productByCategory.id});
     request.headers.addAll(headers);
 
@@ -162,7 +163,7 @@ class _ProductCategoryState extends State<ProductCategory> {
       var request = http.Request(
           'GET',
           Uri.parse(
-              'https://newspeciesendpointswoocomerce.herokuapp.com/productsBycategory'));
+              'https://newspeciesappendpoints.herokuapp.com/productsBycategory'));
       request.body = convert.json
           .encode({"per_page": 100, "category": widget.categoryModel.id});
       request.headers.addAll(headers);
@@ -200,7 +201,7 @@ class _ProductCategoryState extends State<ProductCategory> {
       var request = http.Request(
           'GET',
           Uri.parse(
-              'https://newspeciesendpointswoocomerce.herokuapp.com/productsBycategory'));
+              'https://newspeciesappendpoints.herokuapp.com/productsBycategory'));
       request.body = convert.json
           .encode({"per_page": 100, "category": widget.subCategoryModel.id});
       request.headers.addAll(headers);

@@ -157,7 +157,7 @@ class _SearchProductState extends State<SearchProduct> {
     var request = http.Request(
         'GET',
         Uri.parse(
-            'https://newspeciesendpointswoocomerce.herokuapp.com/search'));
+            'https://newspeciesappendpoints.herokuapp.com/search'));
     request.body = convert.json.encode({"search": keyword});
     request.headers.addAll(headers);
 

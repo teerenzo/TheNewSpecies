@@ -3,6 +3,8 @@ import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:newspecies/components/productCategory.dart';
 import 'package:newspecies/model/product.dart';
+import 'package:newspecies/pages/categories.dart';
+import 'package:newspecies/pages/productHomeCategory.dart';
 import 'package:newspecies/pages/product_details.dart';
 import 'package:newspecies/pages/search.dart';
 import 'package:newspecies/store/wishList.dart';
@@ -73,7 +75,7 @@ class _HomePageState extends State<HomePage> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50.0),
                         border: Border.all(
-                            color: HexColor("#9D0208").withOpacity(0.5),
+                            color: HexColor("#9D0208").withOpacity(0),
                             width: 1.0),
                         color: Colors.white),
                     child: Center(
@@ -847,7 +849,7 @@ class _customBarWidgetState extends State<customBarWidget> {
           // ),
           // SizedBox(height: screenHeight * .007),
           Container(
-            height: screenHeight / 7,
+            height: screenHeight / 6,
             padding: EdgeInsets.all(8),
             child: ListView(
               scrollDirection: Axis.horizontal,
@@ -855,9 +857,14 @@ class _customBarWidgetState extends State<customBarWidget> {
                 Column(
                   children: [
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context)
+                            .push(MaterialPageRoute(builder: ((context) {
+                          return CategoriesPage();
+                        })));
+                      },
                       icon: Icon(Icons.category),
-                      iconSize: 50,
+                      iconSize: 40,
                     ),
                     Text("All category")
                   ],
@@ -870,7 +877,7 @@ class _customBarWidgetState extends State<customBarWidget> {
                     IconButton(
                       onPressed: () {},
                       icon: Icon(Icons.account_balance_wallet_rounded),
-                      iconSize: 50,
+                      iconSize: 40,
                     ),
                     Text("Top Sales")
                   ],
@@ -883,9 +890,9 @@ class _customBarWidgetState extends State<customBarWidget> {
                     IconButton(
                       onPressed: () {},
                       icon: Icon(Icons.work),
-                      iconSize: 50,
+                      iconSize: 40,
                     ),
-                    Text("Our Service")
+                    Text("Repairing \n Service")
                   ],
                 ),
                 SizedBox(
@@ -895,8 +902,11 @@ class _customBarWidgetState extends State<customBarWidget> {
                   children: [
                     IconButton(
                       onPressed: () {},
-                      icon: const Icon(Icons.whatsapp),
-                      iconSize: 50,
+                      icon: const Icon(
+                        Icons.chat,
+                        // color: Colors.green,
+                      ),
+                      iconSize: 40,
                     ),
                     Text("Chat with us")
                   ],
@@ -934,7 +944,7 @@ class _customBarWidgetState extends State<customBarWidget> {
                   // height: 140,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: HexColor("#F85C70")),
+                      color: HexColor("#FABEC0")),
                   child: Column(
                       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       // crossAxisAlignment: CrossAxisAlignment.start,
@@ -945,24 +955,57 @@ class _customBarWidgetState extends State<customBarWidget> {
                         Row(
                           children: [
                             Expanded(
-                              child: Image.asset(
-                                "images/cats/phone.jpeg",
-                                height: 100,
-                                width: 100,
+                              child: GestureDetector(
+                                onTap: (() {
+                                  Navigator.of(context).push(
+                                      MaterialPageRoute(builder: (context) {
+                                    return ProductHomeCategory(
+                                      categoryId: 39,
+                                      name: "SmartPhones",
+                                    );
+                                  }));
+                                }),
+                                child: Image.asset(
+                                  "images/cats/phone.jpeg",
+                                  height: 100,
+                                  width: 100,
+                                ),
                               ),
                             ),
                             Expanded(
-                              child: Image.asset(
-                                "images/cats/game.jpg",
-                                height: 100,
-                                width: 100,
+                              child: GestureDetector(
+                                onTap: (() {
+                                  Navigator.of(context).push(
+                                      MaterialPageRoute(builder: (context) {
+                                    return ProductHomeCategory(
+                                      categoryId: 58,
+                                      name: "Games & Consoles",
+                                    );
+                                  }));
+                                }),
+                                child: Image.asset(
+                                  "images/cats/game.jpg",
+                                  height: 100,
+                                  width: 100,
+                                ),
                               ),
                             ),
                             Expanded(
-                              child: Image.asset(
-                                "images/products/blazer1.jpeg",
-                                height: 100,
-                                width: 100,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                      MaterialPageRoute(builder: (context) {
+                                    return ProductHomeCategory(
+                                      categoryId: 316,
+                                      name: "Computer",
+                                    );
+                                  }));
+                                },
+                                child: Image.asset(
+                                  "images/cats/comp.jpg",
+                                  height: 100,
+                                  width: 100,
+                                ),
                               ),
                             ),
                           ],
@@ -989,24 +1032,57 @@ class _customBarWidgetState extends State<customBarWidget> {
                         Row(
                           children: [
                             Expanded(
-                              child: Image.asset(
-                                "images/cats/cover.jpg",
-                                height: 100,
-                                width: 100,
+                              child: GestureDetector(
+                                onTap: (() {
+                                  Navigator.of(context).push(
+                                      MaterialPageRoute(builder: (context) {
+                                    return ProductHomeCategory(
+                                      categoryId: 103,
+                                      name: "Cover",
+                                    );
+                                  }));
+                                }),
+                                child: Image.asset(
+                                  "images/cats/cover.jpg",
+                                  height: 100,
+                                  width: 100,
+                                ),
                               ),
                             ),
                             Expanded(
-                              child: Image.asset(
-                                "images/cats/screen protector.jpg",
-                                height: 100,
-                                width: 100,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                      MaterialPageRoute(builder: (context) {
+                                    return ProductHomeCategory(
+                                      categoryId: 148,
+                                      name: "Screen Protector",
+                                    );
+                                  }));
+                                },
+                                child: Image.asset(
+                                  "images/cats/screen protector.jpg",
+                                  height: 100,
+                                  width: 100,
+                                ),
                               ),
                             ),
                             Expanded(
-                              child: Image.asset(
-                                "images/cats/charger.jpg",
-                                height: 100,
-                                width: 100,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                      MaterialPageRoute(builder: (context) {
+                                    return ProductHomeCategory(
+                                      categoryId: 143,
+                                      name: "Charges",
+                                    );
+                                  }));
+                                },
+                                child: Image.asset(
+                                  "images/cats/charger.jpg",
+                                  height: 100,
+                                  width: 100,
+                                ),
                               ),
                             ),
                           ],
@@ -1022,7 +1098,7 @@ class _customBarWidgetState extends State<customBarWidget> {
                   // height: 140,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: HexColor("#FABEC0")),
+                      color: HexColor("#F85C70")),
                   child: Column(
                       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       // crossAxisAlignment: CrossAxisAlignment.start,
@@ -1032,24 +1108,57 @@ class _customBarWidgetState extends State<customBarWidget> {
                         Row(
                           children: [
                             Expanded(
-                              child: Image.asset(
-                                "images/cats/earphone.jpg",
-                                height: 100,
-                                width: 100,
+                              child: GestureDetector(
+                                onTap: (() {
+                                  Navigator.of(context).push(
+                                      MaterialPageRoute(builder: (context) {
+                                    return ProductHomeCategory(
+                                      categoryId: 231,
+                                      name: "earphone",
+                                    );
+                                  }));
+                                }),
+                                child: Image.asset(
+                                  "images/cats/earphone.jpg",
+                                  height: 100,
+                                  width: 100,
+                                ),
                               ),
                             ),
                             Expanded(
-                              child: Image.asset(
-                                "images/cats/headset.jpg",
-                                height: 100,
-                                width: 100,
+                              child: GestureDetector(
+                                onTap: (() {
+                                  Navigator.of(context).push(
+                                      MaterialPageRoute(builder: (context) {
+                                    return ProductHomeCategory(
+                                      categoryId: 27,
+                                      name: "Headphones",
+                                    );
+                                  }));
+                                }),
+                                child: Image.asset(
+                                  "images/cats/headset.jpg",
+                                  height: 100,
+                                  width: 100,
+                                ),
                               ),
                             ),
                             Expanded(
-                              child: Image.asset(
-                                "images/cats/speaker.jpg",
-                                height: 100,
-                                width: 100,
+                              child: GestureDetector(
+                                onTap: (() {
+                                  Navigator.of(context).push(
+                                      MaterialPageRoute(builder: (context) {
+                                    return ProductHomeCategory(
+                                      categoryId: 41,
+                                      name: "Speaker",
+                                    );
+                                  }));
+                                }),
+                                child: Image.asset(
+                                  "images/cats/speaker.jpg",
+                                  height: 100,
+                                  width: 100,
+                                ),
                               ),
                             ),
                           ],
@@ -1078,22 +1187,21 @@ class _customBarWidgetState extends State<customBarWidget> {
                   ),
                 ),
               ),
-              TextButton(onPressed: () {}, child: Text("View more"))
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) {
+                      return ProductHomeCategory(
+                        categoryId: 33,
+                        name: "Most Popular Product",
+                      );
+                    }));
+                  },
+                  child: Text("View more"))
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-                height: screenHeight / 4,
-                width: MediaQuery.of(context).size.width,
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: productList.length,
-                    itemBuilder: (context, index) {
-                      return ProductBack(product: productList[index]);
-                    })),
+          Container(
+            child: CategoryProduct(categoryId: 33),
           ),
 
           Row(
@@ -1109,7 +1217,17 @@ class _customBarWidgetState extends State<customBarWidget> {
                   ),
                 ),
               ),
-              TextButton(onPressed: () {}, child: Text("View more"))
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) {
+                      return ProductHomeCategory(
+                        categoryId: 45,
+                        name: "Watches",
+                      );
+                    }));
+                  },
+                  child: Text("View more"))
             ],
           ),
           Container(

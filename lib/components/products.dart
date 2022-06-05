@@ -40,7 +40,7 @@ class _ProductsState extends State<Products> {
     var request = http.Request(
         'GET',
         Uri.parse(
-            'https://newspeciesendpointswoocomerce.herokuapp.com/products'));
+            'https://newspeciesappendpoints.herokuapp.com/products'));
     request.body = '''{\n    "per_page":100\n}''';
     request.headers.addAll(headers);
 
