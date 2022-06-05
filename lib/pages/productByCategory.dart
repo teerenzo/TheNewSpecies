@@ -3,12 +3,13 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:http/http.dart' as http;
+
 import 'package:newspecies/model/subcategory.dart';
 import 'package:provider/provider.dart';
 import 'package:newspecies/components/products.dart';
 import 'package:newspecies/model/category.dart';
 import 'dart:convert' as convert;
+import 'package:http/http.dart' as http;
 
 import 'package:newspecies/model/product.dart';
 import 'package:newspecies/store/cart.dart';
@@ -33,7 +34,7 @@ class _ProductByCategporyState extends State<ProductByCategpory> {
     var request = http.Request(
         'GET',
         Uri.parse(
-            'https://newspeciesendpointswoocomerce.herokuapp.com/getSubCategories'));
+            'https://newspeciesappendpoints.herokuapp.com/getSubCategories'));
     request.body = json.encode({"categoryId": widget.productByCategory.id});
     request.headers.addAll(headers);
 
@@ -151,6 +152,7 @@ class ProductCategory extends StatefulWidget {
 class _ProductCategoryState extends State<ProductCategory> {
   List<Product> products = <Product>[];
   bool isLoading = true;
+  bool hasProducts = false;
   late Product product;
   late List<Product> product1;
 
@@ -162,7 +164,7 @@ class _ProductCategoryState extends State<ProductCategory> {
       var request = http.Request(
           'GET',
           Uri.parse(
-              'https://newspeciesendpointswoocomerce.herokuapp.com/productsBycategory'));
+              'https://newspeciesappendpoints.herokuapp.com/productsBycategory'));
       request.body = convert.json
           .encode({"per_page": 100, "category": widget.categoryModel.id});
       request.headers.addAll(headers);
@@ -188,6 +190,9 @@ class _ProductCategoryState extends State<ProductCategory> {
         setState(() {
           // products = product as List;
           isLoading = false;
+          if (products.isNotEmpty) {
+            hasProducts = true;
+          }
         });
         return products;
         // print(jsonData);
@@ -200,7 +205,7 @@ class _ProductCategoryState extends State<ProductCategory> {
       var request = http.Request(
           'GET',
           Uri.parse(
-              'https://newspeciesendpointswoocomerce.herokuapp.com/productsBycategory'));
+              'https://newspeciesappendpoints.herokuapp.com/productsBycategory'));
       request.body = convert.json
           .encode({"per_page": 100, "category": widget.subCategoryModel.id});
       request.headers.addAll(headers);
@@ -226,6 +231,9 @@ class _ProductCategoryState extends State<ProductCategory> {
         setState(() {
           // products = product as List;
           isLoading = false;
+          if (products.isNotEmpty) {
+            hasProducts = true;
+          }
         });
         return products;
         // print(jsonData);
@@ -252,47 +260,32 @@ class _ProductCategoryState extends State<ProductCategory> {
         ? Center(
             child: CircularProgressIndicator(),
           )
-        // : FutureBuilder<List<Product>>(
-        //     future: fetchProducts(),
-        //     builder: (context, snapshot) {
-        //       if (snapshot.hasData) {
-        //         return GridView.builder(
-        //             itemCount: 100,
-        //             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        //                 crossAxisCount: 2),
-        //             itemBuilder: (BuildContext context, int index) {
-        //               return Consumer<CartStore>(
-        //                 builder: (context, cart, child) => SingleProd(
-        //                   product: snapshot.data,
-        //                 ),
-        //               );
-        //             });
-        //       } else {
-        //         return CircularProgressIndicator();
-        //       }
-        //     });
-        : Container(
-            height: screenHeight,
-            padding: EdgeInsets.only(left: 15, right: 15),
-            child: StaggeredGridView.countBuilder(
-              shrinkWrap: true,
-              itemCount: products.length,
-              crossAxisCount: 2,
-              crossAxisSpacing: 8,
-              mainAxisSpacing: 8,
-              itemBuilder: (BuildContext context, int index) {
-                return Container(
-                  child: Consumer<CartStore>(
-                    builder: (context, cart, child) => SingleProd(
-                      product: products[index],
-                    ),
-                  ),
-                );
-              },
-              staggeredTileBuilder: (index) => StaggeredTile.fit(1),
-              // staggeredTileBuilder: (index) => StaggeredTile.count(
-              //     (index % 7 == 0) ? 2 : 1, (index % 7 == 0) ? 2 : 1),
-            ),
-          );
+        : hasProducts
+            ? Container(
+                height: screenHeight,
+                padding: EdgeInsets.only(left: 15, right: 15),
+                child: StaggeredGridView.countBuilder(
+                  shrinkWrap: true,
+                  itemCount: products.length,
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 8,
+                  mainAxisSpacing: 8,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      child: Consumer<CartStore>(
+                        builder: (context, cart, child) => SingleProd(
+                          product: products[index],
+                        ),
+                      ),
+                    );
+                  },
+                  staggeredTileBuilder: (index) => StaggeredTile.fit(1),
+                  // staggeredTileBuilder: (index) => StaggeredTile.count(
+                  //     (index % 7 == 0) ? 2 : 1, (index % 7 == 0) ? 2 : 1),
+                ),
+              )
+            : Center(
+                child: Text("No Products"),
+              );
   }
 }

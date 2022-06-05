@@ -9,6 +9,7 @@ import 'dart:convert' as convert;
 import 'package:hexcolor/hexcolor.dart';
 import 'package:newspecies/pages/home.dart';
 import 'package:newspecies/pages/product_details.dart';
+import 'package:newspecies/store/cart.dart';
 import 'package:newspecies/store/wishList.dart';
 import 'package:provider/provider.dart';
 
@@ -30,7 +31,7 @@ class _CategoryProductState extends State<CategoryProduct> {
     var request = http.Request(
         'GET',
         Uri.parse(
-            'https://newspeciesendpointswoocomerce.herokuapp.com/productsBycategory'));
+            'https://newspeciesappendpoints.herokuapp.com/productsBycategory'));
     request.body = json.encode({"per_page": 10, "category": widget.categoryId});
     request.headers.addAll(headers);
     http.StreamedResponse response = await request.send();
@@ -41,9 +42,19 @@ class _CategoryProductState extends State<CategoryProduct> {
         Product productModel = Product.fromJson(item);
 
         product.add(productModel);
+        setState(() {
+          // Consumer<CartStore>(
+          //   builder: (context, value, child) {
+          //       value.add(productModel);
+          //   },
+          // );
+          CartStore store = CartStore();
+          store.items;
+        });
       }
       setState(() {
         // categories = jsonData;
+
         isLoading = false;
       });
       print(jsonData);
@@ -72,7 +83,6 @@ class _CategoryProductState extends State<CategoryProduct> {
             ),
           )
         : Container(
-          
             padding: EdgeInsets.only(left: 8, right: 8),
             height: screenHeight / 3,
             width: MediaQuery.of(context).size.width / 2,
@@ -96,7 +106,7 @@ class ProductBySpecific extends StatelessWidget {
     double screenHeight = MediaQuery.of(context).size.height;
     // return Text("${product.name.toString()}");
     return Container(
-      width: MediaQuery.of(context).size.width / 2,
+      width: MediaQuery.of(context).size.width / 2.5,
       child: Card(
         child: Hero(
           tag: 'hjghjgh',

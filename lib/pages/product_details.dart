@@ -33,7 +33,7 @@ class _ProductDetailsState extends State<ProductDetails> {
     double size = MediaQuery.of(context).size.width;
     List<NetworkImage> _imgs = [];
 
-    List<Images>? images = widget.product.images;
+    // List<Images>? images = widget.product.images;
     var images2 = [];
     for (var i = 0; i < widget.product.images!.length; i++) {
       _imgs.add(NetworkImage("${widget.product.images![i].src}"));
@@ -412,25 +412,25 @@ class _ProductDetailsState extends State<ProductDetails> {
             ),
             subtitle: Text("${widget.product.description}"),
           ),
-          Divider(),
-          Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(12.0, 5.0, 5.0, 5.0),
-                child: Text(
-                  'Product Condiction',
-                  style: TextStyle(
-                    color: Colors.grey,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(5.0),
-                //fix Later
-                child: Text("condiction"),
-              ),
-            ],
-          ),
+          // Divider(),
+          // Row(
+          //   children: [
+          //     Padding(
+          //       padding: const EdgeInsets.fromLTRB(12.0, 5.0, 5.0, 5.0),
+          //       child: Text(
+          //         'Product Condiction',
+          //         style: TextStyle(
+          //           color: Colors.grey,
+          //         ),
+          //       ),
+          //     ),
+          //     Padding(
+          //       padding: const EdgeInsets.all(5.0),
+          //       //fix Later
+          //       child: Text("condiction"),
+          //     ),
+          //   ],
+          // ),
           Divider(),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -497,7 +497,7 @@ class _SimilarProductState extends State<SimilarProduct> {
     var request = http.Request(
         'GET',
         Uri.parse(
-            'https://newspeciesendpointswoocomerce.herokuapp.com/productsBycategory'));
+            'https://newspeciesappendpoints.herokuapp.com/productsBycategory'));
     request.body = json.encode({"per_page": 10, "category": 39});
     request.headers.addAll(headers);
     http.StreamedResponse response = await request.send();

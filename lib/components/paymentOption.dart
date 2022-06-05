@@ -17,7 +17,7 @@ class _paymentOptionState extends State<paymentOption> {
     var request = http.Request(
         'GET',
         Uri.parse(
-            'https://newspeciesendpointswoocomerce.herokuapp.com/getways'));
+            'https://newspeciesappendpoints.herokuapp.com/getways'));
     request.body = json.encode({});
     request.headers.addAll(headers);
 
