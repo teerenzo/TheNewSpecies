@@ -37,10 +37,8 @@ class _ProductsState extends State<Products> {
     // }
     // if (isConnected) {
     var headers = {'Content-Type': 'application/json'};
-    var request = http.Request(
-        'GET',
-        Uri.parse(
-            'https://newspeciesappendpoints.herokuapp.com/products'));
+    var request = http.Request('GET',
+        Uri.parse('https://newspeciesappendpoints.herokuapp.com/products'));
     request.body = '''{\n    "per_page":100\n}''';
     request.headers.addAll(headers);
 
@@ -247,7 +245,7 @@ class SingleProd extends StatelessWidget {
                       TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
                 ),
                 Text(
-                  "${proname.length > 20 ? proname : proname}",
+                  "${proname.length > 20 ? proname.substring(0, 25) : proname}",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
